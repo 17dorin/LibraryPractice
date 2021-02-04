@@ -32,7 +32,7 @@ Catalogue class
 	-Save the List<Book> to a text file on close, attempt to open file on start.
 
 
-	//// CONSOLE mock up
+	//// CONSOLE mock up /////
 
 	Welcome to our Library!
 		1. See a list of all books
@@ -44,4 +44,5 @@ Catalogue class
 	
 	What would you like to do? (choose a number and press enter)
 	
-	((validate text))
+	((validate user text here, provide a try again message if not a number in range ))
+
