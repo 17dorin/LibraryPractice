@@ -30,3 +30,18 @@ Catalogue class
 				}
 	-Return a book void ReturnBook(Book book); Reset status, complain if it's late
 	-Save the List<Book> to a text file on close, attempt to open file on start.
+
+
+	//// CONSOLE mock up
+
+	Welcome to our Library!
+		1. See a list of all books
+		2. Search for a book by author
+		3. Search for a book by title
+		4. Return a book.
+		// extra?
+		5. Check due date status of your book
+	
+	What would you like to do? (choose a number and press enter)
+	
+	((validate text))
