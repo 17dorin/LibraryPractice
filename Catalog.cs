@@ -7,11 +7,14 @@ namespace LibraryProject
 {
     class Catalog
     {
-        List<Book> Books { get; set; }
+        public List<Book> Books { get; set; }
 
         public Catalog()
         {
             //Initialize Book objects and place them into a list here
+            Books = new List<Book>();
+            Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
+            Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
         }
 
         public void DisplayBooks(List<Book> books)
@@ -64,6 +67,14 @@ namespace LibraryProject
 
             return SearchedBooks;
 
+        }
+
+        public void UpdateDueDate(Book book)
+        {
+            DateTime timeOfCheckOut = DateTime.Now;
+            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+
+            book.DueDate = dueDate;
         }
     }
 }
