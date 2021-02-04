@@ -4,7 +4,7 @@ using System.Text;
 
 namespace LibraryProject
 {
-    public enum RentalStatus { CheckedOut, CheckedIn };
+    public enum RentalStatus { Out, In };
     class Book
     {
         public string Title { get; set; }
@@ -16,9 +16,12 @@ namespace LibraryProject
         {
             this.Title = Title;
             this.Author = Author;
-            this.Status = RentalStatus.CheckedIn;
+            this.Status = RentalStatus.In;
         }
 
+        //public override string ToString()
+        //{
+        //}
 
     }
 }
