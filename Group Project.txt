@@ -1,0 +1,32 @@
+Group is Nick, Antonio, Josh G.
+
+For daily stand ups, answer the following questions:
+
+-What have you done up until now
+-What's the plan for today
+-What obstacles do you forsee
+
+project: Library 
+
+Book class
+	-string Title, string Author, Enum RentalStatus, DateTime DueDate
+
+Catalogue class
+	-List<Book> Books
+
+	Methods
+	-Display all books void DisplayBooks();
+
+	Search methods could be combined into one
+	-Search for author Book FindAuthor(string name);
+	-Search for title Book FindTitle(string name);
+
+	-Check out a book. void CheckOut();	
+				{
+					Display books
+					Get input to find a book
+					Check status of given book
+					If availble, update the due date
+				}
+	-Return a book void ReturnBook(Book book); Reset status, complain if it's late
+	-Save the List<Book> to a text file on close, attempt to open file on start.
