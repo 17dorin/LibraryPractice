@@ -12,7 +12,11 @@ namespace LibraryProject
             Console.WriteLine("Another commit from nick");
             Console.WriteLine("more fuel for the fire");
             Console.WriteLine("Antonio was here!");
+        }
 
+        static void FancyMethod()
+        {
+            // This was created by ANTONIO while checked out on branch: Antonio
         }
     }
 }
