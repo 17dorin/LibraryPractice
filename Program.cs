@@ -8,6 +8,7 @@ namespace LibraryProject
         {
             Console.WriteLine("Hello World!");
             Console.WriteLine("This is a commit coming from Nick's branch");
+            Console.WriteLine("Another commit from nick");
         }
     }
 }
