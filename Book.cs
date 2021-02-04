@@ -17,13 +17,14 @@ namespace LibraryProject
             this.Title = Title;
             this.Author = Author;
             this.Status = RentalStatus.In;
+<<<<<<< HEAD
         }
 
         //public override string ToString()
         //{
         //}
+=======
+>>>>>>> main
         }
-
-
     }
 }
