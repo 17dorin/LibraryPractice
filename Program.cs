@@ -7,8 +7,9 @@ namespace LibraryProject
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            Console.WriteLine("Antonio was here!");
+            Console.WriteLine("idk if this is working");
             Console.WriteLine("This is a commit coming from Nick's branch");
+            Console.WriteLine("Antonio was here!");
         }
     }
 }
