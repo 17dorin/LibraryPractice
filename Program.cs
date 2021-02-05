@@ -12,9 +12,6 @@ namespace LibraryProject
             Catalog catalog = new Catalog();
 
             catalog.DisplayMenu();
-
-            //SaveAndExitApp("bookData", catalog);
-
         }
 
         private static void SaveAndExitApp(string fileName, Catalog catalog)
@@ -31,8 +28,10 @@ namespace LibraryProject
         public static List<Book> GenerateBookListFromDisk()
         {
             List<Book> diskBooks = new List<Book>();
+
             string fileName = "LibraryCatalog.txt";
             string path = Path.Combine(Environment.CurrentDirectory, fileName);
+
             List<string> booksData = File.ReadAllLines(path).ToList();
 
             foreach (string line in booksData)
