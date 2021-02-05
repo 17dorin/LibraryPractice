@@ -25,5 +25,10 @@ namespace LibraryProject
             DueDate = dueDate;
             Status = RentalStatus.Out;
         }
+
+        public override string ToString()
+        {
+            return $"{Title}, {Author}, {Status}, {DueDate.Ticks}";
+        }
     }
 }

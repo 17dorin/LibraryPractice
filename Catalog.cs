@@ -7,13 +7,18 @@ namespace LibraryProject
 {
     class Catalog
     {
-        List<Book> Books { get; set; }
+        public List<Book> Books { get; set; }
 
         public Catalog()
         {
             Books = new List<Book>();
             Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
+            Books.Add(new Book("Me", "Rebecca Becca"));
+            Books.Add(new Book("100 Recipes You Can Cook On A Hot Rod Engine", "Todd Ruggles"));
+            Books.Add(new Book("Tell Me What You Want", "Smarty Spice"));
+            Books.Add(new Book("Can I Borrow Your Dignity?", "Kirk VanHonkers"));
+            Books.Add(new Book("So You Want To Be A Software Developer", "Kimmy Vindaloo"));
         }
 
         public void DisplayBooks(List<Book> books)
