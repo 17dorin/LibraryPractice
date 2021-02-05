@@ -98,26 +98,6 @@ namespace LibraryProject
             {
                 Console.WriteLine("Please enter a valid option");
             }
-
-           
-
-
-            //Console.WriteLine("Enter the title of the book you want to check out");
-            //DisplayBooks(this.Books);
-            //string input = Console.ReadLine().Trim().ToLower();
-
-            //foreach(Book book in this.Books)
-            //{
-            //    if(String.Equals(input, book.Title.ToLower()))
-            //    {
-            //        Console.WriteLine("Do you want to check out this book? Y/N");
-            //        if (Console.ReadKey(false).Key == ConsoleKey.Y)
-            //        {
-            //            book.CheckOut();
-            //        }
-            //    }
-            //}
-
         }
 
         public void DisplayMenu()
