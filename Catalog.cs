@@ -7,37 +7,37 @@ namespace LibraryProject
 {
     class Catalog
     {
-        List<Book> Books { get; set; }
+        List<Media> Pieces { get; set; }
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
         {
-            Books = new List<Book>();
-            Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
-            Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
-            Books.Add(new Book("bbok 3", "anon"));
-            Books.Add(new Book("We as a society have progressed past the need for git", "Me"));
-            Books.Add(new Book("The Pants that Didn't event try", "Timmy Dilly Jr."));
-            Books.Add(new Book("Turn 3", "Dale Earnheardt"));
-            Books.Add(new Book("23 Stab Wounds", "Julius Ceasar"));
-            Books.Add(new Book("Back to nature", "Carlos Mark"));
-            Books.Add(new Book("Everyday is a winding road", "Sheryl Crowe"));
-            Books.Add(new Book("book4", "steve jobs"));
-            Books.Add(new Book("almost time for lunch", "Me"));
-            Books.Add(new Book("time for lunch", "Me Jr."));
+            Pieces = new List<Media>();
+            Pieces.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
+            Pieces.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
+            Pieces.Add(new Book("bbok 3", "anon"));
+            Pieces.Add(new Book("We as a society have progressed past the need for git", "Me"));
+            Pieces.Add(new Book("The Pants that Didn't event try", "Timmy Dilly Jr."));
+            Pieces.Add(new Book("Turn 3", "Dale Earnheardt"));
+            Pieces.Add(new Book("23 Stab Wounds", "Julius Ceasar"));
+            Pieces.Add(new Book("Back to nature", "Carlos Mark"));
+            Pieces.Add(new Book("Everyday is a winding road", "Sheryl Crowe"));
+            Pieces.Add(new Book("book4", "steve jobs"));
+            Pieces.Add(new Book("almost time for lunch", "Me"));
+            Pieces.Add(new Book("time for lunch", "Me Jr."));
         }
 
         //Displays all books/other media with index and related info
-        public void DisplayBooks(List<Book> books)
+        public void DisplayBooks(List<Media> pieces)
         {
 
             Console.WriteLine("\t\t==========OUR=COLLECTION==========");
 
-            if(books.Count != 0)
+            if(pieces.Count != 0)
             {
-                foreach (Book book in books)
+                foreach (Book book in pieces)
                 {
-                    Console.WriteLine($"\n\t\t[{books.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
+                    Console.WriteLine($"\n\t\t[{pieces.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
                 }
             }
             else
@@ -48,41 +48,41 @@ namespace LibraryProject
         }
 
         //Finds books based on Author property with a given string, can find partial matches
-        public List<Book> FindAuthor(string search)
+        public List<Media> FindAuthor(string search)
         {
-            List<Book> SearchedBooks = new List<Book>();
+            List<Media> searchedMedia = new List<Media>();
 
             search = search.ToLower();
 
-            foreach(Book book in Books)
+            foreach(Media piece in Pieces)
             {
-                if(book.Author.ToLower().Contains(search))
+                if(piece.Author.ToLower().Contains(search))
                 {
-                    SearchedBooks.Add(book);
+                    searchedMedia.Add(piece);
                 }
             }
 
-            return SearchedBooks;
+            return searchedMedia;
 
         }
 
         //Same as FindAuthor but with Title property
-        public List<Book> FindTitle(string search)
+        public List<Media> FindTitle(string search)
         {
 
-            List<Book> SearchedBooks = new List<Book>();
+            List<Media> searchedMedia = new List<Media>();
 
             search = search.ToLower();
 
-            foreach (Book book in Books)
+            foreach (Media piece in Pieces)
             {
-                if (book.Title.ToLower().Contains(search))
+                if (piece.Title.ToLower().Contains(search))
                 {
-                    SearchedBooks.Add(book);
+                    searchedMedia.Add(piece);
                 }
             }
 
-            return SearchedBooks;
+            return searchedMedia;
 
         }
 
@@ -105,7 +105,7 @@ namespace LibraryProject
             Console.WriteLine("Which book do you want to check out?");
             try
             {
-                DisplayBooks(this.Books);
+                DisplayBooks(this.Pieces);
             }
             catch (Exception e)
             {
@@ -130,12 +130,12 @@ namespace LibraryProject
             Console.Clear();
 
             //Makes sure input is within bounds of the list
-            if (option - 1 >= 0 && option - 1 < Books.Count)
+            if (option - 1 >= 0 && option - 1 < Pieces.Count)
             {
-                foreach (Book book in Books)
+                foreach (Book book in Pieces)
                 {
                     //Matches input with correct book
-                    if (option - 1 == Books.IndexOf(book))
+                    if (option - 1 == Pieces.IndexOf(book))
                     {
                         //Checks if selected book is currently out
                         if(book.Status == RentalStatus.In)
@@ -186,7 +186,7 @@ namespace LibraryProject
                 if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
                 {
                     Console.Clear();
-                    DisplayBooks(Books);
+                    DisplayBooks(this.Pieces);
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
@@ -245,7 +245,7 @@ namespace LibraryProject
             Console.WriteLine("Which book do you want to return?");
 
             //Adds books in our catalog that are currently out to a different list
-            foreach(Book book in Books)
+            foreach(Book book in Pieces)
             {
                 if(book.Status == RentalStatus.Out)
                 {
