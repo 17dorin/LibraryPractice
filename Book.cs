@@ -18,10 +18,5 @@ namespace LibraryProject
             this.Author = Author;
             this.Status = RentalStatus.In;
         }
-
-
     }
-
-
-    
 }
