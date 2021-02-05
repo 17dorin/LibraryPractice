@@ -30,10 +30,12 @@ namespace LibraryProject
             this.DueDate = dueDate;
         }
 
+        //Both CheckOut and Return are called within Catalog
         public void CheckOut()
         {
             DateTime timeOfCheckOut = DateTime.Now;
             DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+
 
             DueDate = dueDate;
             Status = RentalStatus.Out;
@@ -42,6 +44,12 @@ namespace LibraryProject
         public override string ToString()
         {
             return $"{Title}, {Author}, {Status}, {DueDate}";
+        }
+
+        public void Return()
+        {
+            DueDate = DateTime.MaxValue;
+            Status = RentalStatus.In;
         }
     }
 }
