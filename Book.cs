@@ -16,11 +16,12 @@ namespace LibraryProject
             this.Status = RentalStatus.In;
             this.DueDate = new DateTime(DateTime.MaxValue.Ticks);
         }
-
+        //Both CheckOut and Return are called within Catalog
         public void CheckOut()
         {
             DateTime timeOfCheckOut = DateTime.Now;
             DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+
 
             DueDate = dueDate;
             Status = RentalStatus.Out;
