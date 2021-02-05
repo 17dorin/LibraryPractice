@@ -17,6 +17,7 @@ namespace LibraryProject
             this.Title = Title;
             this.Author = Author;
             this.Status = RentalStatus.In;
+            this.DueDate = new DateTime(DateTime.MaxValue.Ticks);
         }
 
 
