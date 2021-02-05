@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Linq;
 
 namespace LibraryProject
@@ -12,26 +13,14 @@ namespace LibraryProject
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
         {
-            Pieces = new List<Media>();
-            Pieces.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
-            Pieces.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
-            Pieces.Add(new Book("bbok 3", "anon"));
-            Pieces.Add(new Book("We as a society have progressed past the need for git", "Me"));
-            Pieces.Add(new Book("The Pants that Didn't event try", "Timmy Dilly Jr."));
-            Pieces.Add(new Book("Turn 3", "Dale Earnheardt"));
-            Pieces.Add(new Book("23 Stab Wounds", "Julius Ceasar"));
-            Pieces.Add(new Book("Back to nature", "Carlos Mark"));
-            Pieces.Add(new Book("Everyday is a winding road", "Sheryl Crowe"));
-            Pieces.Add(new Book("book4", "steve jobs"));
-            Pieces.Add(new Book("almost time for lunch", "Me"));
-            Pieces.Add(new Book("time for lunch", "Me Jr."));
+           Books = GenerateBookListFromDisk();
         }
 
         //Displays all books/other media with index and related info
         public void DisplayBooks(List<Media> pieces)
         {
 
-            Console.WriteLine("\t\t==========OUR=COLLECTION==========");
+            Console.WriteLine("Book list");
 
             if(pieces.Count != 0)
             {
@@ -139,12 +128,17 @@ namespace LibraryProject
                         //Checks if selected book is currently out
                         if(book.Status == RentalStatus.In)
                         {
-                            Console.WriteLine("Do you want to check out this book? Y/N");
-                            Console.WriteLine($"{book.Title}");
+                            Console.WriteLine("\n\n\t\tDo you want to check out this book? Y/N");
+                            Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
                                 book.CheckOut();
                                 Console.Clear();
+                                Console.WriteLine("\n\n\t\tYou have checked out: ");
+                                
+                                Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}\n\n\t\t\t\tDue: {book.DueDate}");
+
+
                             }
                         }
                         else
@@ -167,13 +161,13 @@ namespace LibraryProject
             {
                 Console.Clear();
 
-                Console.WriteLine("\n\n\n\t\t\t==== EIDMAR==LIBRARY====");
+                Console.WriteLine("\n\n\n\t\t\t=====EIDMAR=LIBRARY=====");
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
                 Console.WriteLine("\t\t\t[1] Show me the books");
                 Console.WriteLine("\t\t\t[2] Who wrote it?");
                 Console.WriteLine("\t\t\t[3] What's it called?");
-                Console.WriteLine("\t\t\t[4] Book status");
+                Console.WriteLine("\t\t\t[4] Borrow a book");
                 Console.WriteLine("\t\t\t[5] Give it back");
                 Console.WriteLine("\t\t\t[6] Let me out");
                 Console.WriteLine("\t\t\t========================");
@@ -185,7 +179,9 @@ namespace LibraryProject
                 if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
                 {
                     Console.Clear();
-                    DisplayBooks(this.Pieces);
+
+                    Console.WriteLine("\t\t==========OUR=COLLECTION==========");
+                    DisplayBooks(Pieces);
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
@@ -220,6 +216,7 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
+                    Console.WriteLine("\t\t\t==========BORROWED=BOOKS==========");
                     ReturnBook();
                     Console.ReadKey();
                 }
@@ -307,6 +304,34 @@ namespace LibraryProject
             {
                 Console.WriteLine("Please enter a valid option");
             }
+        }
+
+        // FILE IO
+        public static List<Book> GenerateBookListFromDisk()
+        {
+            List<Book> diskBooks = new List<Book>();
+            string fileName = "LibraryCatalog.txt";
+            string path = Path.Combine(Environment.CurrentDirectory, fileName);
+            List<string> booksData = File.ReadAllLines(path).ToList();
+
+            foreach (string line in booksData)
+            {
+                // Create an array of each value separated by delimiter (comma)
+                string[] data = line.Split(',');
+
+                // For each value in the array, trim out in extra space, just in case!
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = data[i].Trim();
+                }
+
+                diskBooks.Add(new Book(data[0], data[1], data[2], data[3]));
+            }
+
+            // Order Alphabetically
+            diskBooks.Sort((x, y) => x.Title.CompareTo(y.Title));
+
+            return diskBooks;
         }
     }
 }
