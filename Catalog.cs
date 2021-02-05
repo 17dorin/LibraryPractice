@@ -25,7 +25,7 @@ namespace LibraryProject
             {
                 foreach (Book book in books)
                 {
-                    Console.WriteLine($"1) \"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                    Console.WriteLine($"[{books.IndexOf(book) + 1}] \"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
                 }
             }
             else
@@ -160,6 +160,7 @@ namespace LibraryProject
         public void ReturnBook()
         {
             Console.WriteLine("Which book do you want to return?");
+
         }
     }
 }
