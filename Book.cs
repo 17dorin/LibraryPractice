@@ -17,14 +17,16 @@ namespace LibraryProject
             this.Title = Title;
             this.Author = Author;
             this.Status = RentalStatus.In;
-<<<<<<< HEAD
         }
 
-        //public override string ToString()
-        //{
-        //}
-=======
->>>>>>> main
+
+        public void CheckOut()
+        {
+            DateTime timeOfCheckOut = DateTime.Now;
+            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+
+            this.DueDate = dueDate;
+            this.Status = RentalStatus.Out;
         }
     }
 }
