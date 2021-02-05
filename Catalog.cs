@@ -14,6 +14,16 @@ namespace LibraryProject
             Books = new List<Book>();
             Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
+            Books.Add(new Book("bbok 3", "anon"));
+            Books.Add(new Book("We as a society have progressed past the need for git", "Me"));
+            Books.Add(new Book("The Pants that Didn't event try", "Timmy Dilly Jr."));
+            Books.Add(new Book("Turn 3", "Dale Earnheardt"));
+            Books.Add(new Book("23 Stab Wounds", "Julius Ceasar"));
+            Books.Add(new Book("Back to nature", "Carlos Mark"));
+            Books.Add(new Book("Everyday is a winding road", "Sheryl Crowe"));
+            Books.Add(new Book("book4", "steve jobs"));
+            Books.Add(new Book("almost time for lunch", "Me"));
+            Books.Add(new Book("time for lunch", "Me Jr."));
         }
 
         public void DisplayBooks(List<Book> books)
@@ -133,26 +143,36 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
                     Console.Clear();
-                    Console.WriteLine("find author");
+                    Console.WriteLine("\n\n\t\t\t========================");
+                    Console.WriteLine("\t\t\t====Search=by=Author====");
+                    Console.Write("\n\t\t\tAuthor Name: ");
+                    string input = Console.ReadLine().ToLower().Trim();
+                    DisplayBooks(FindAuthor(input));
                     Console.ReadKey();
+
 
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
                     Console.Clear();
-                    Console.WriteLine("search by title");
+                    Console.WriteLine("\n\n\t\t\t========================");
+                    Console.WriteLine("\t\t\t====Search=by=Title====");
+                    Console.Write("\n\t\t\tAuthor Name: ");
+                    string input = Console.ReadLine().ToLower().Trim();
+                    DisplayBooks(FindTitle(input));
+
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {
                     Console.Clear();
-                    Console.WriteLine("select book");
+                    ReserveBook();
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
-                    Console.WriteLine("return");
+                    ReturnBook();
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D6 || keyInput.Key == ConsoleKey.NumPad6)
