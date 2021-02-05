@@ -4,6 +4,7 @@ using System.Text;
 
 namespace LibraryProject
 {
+    //Base class to derive other media from
     public enum RentalStatus { Out, In };
 
     class Media
