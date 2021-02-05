@@ -29,18 +29,18 @@ namespace LibraryProject
         public void DisplayBooks(List<Book> books)
         {
 
-            Console.WriteLine("Book list");
+            Console.WriteLine("\t\t==========OUR=COLLECTION==========");
 
             if(books.Count != 0)
             {
                 foreach (Book book in books)
                 {
-                    Console.WriteLine($"[{books.IndexOf(book) + 1}] \"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                    Console.WriteLine($"\n\t\t[{books.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
                 }
             }
             else
             {
-                throw new Exception("No books were found");
+                throw new Exception("\n\n\n\t\t\tNo books were found");
             }
 
         }
