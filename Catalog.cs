@@ -25,7 +25,7 @@ namespace LibraryProject
             {
                 foreach (Book book in books)
                 {
-                    Console.WriteLine($"\"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                    Console.WriteLine($"1) \"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
                 }
             }
             else
@@ -68,6 +68,26 @@ namespace LibraryProject
             }
 
             return SearchedBooks;
+
+        }
+
+        public void ReserveBook()
+        {
+            Console.WriteLine("Enter the title of the book you want to check out");
+            DisplayBooks(this.Books);
+            string input = Console.ReadLine().Trim().ToLower();
+
+            foreach(Book book in this.Books)
+            {
+                if(String.Equals(input, book.Title.ToLower()))
+                {
+                    Console.WriteLine("Do you want to check out this book? Y/N");
+                    if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                    {
+                        book.CheckOut();
+                    }
+                }
+            }
 
         }
 
@@ -135,6 +155,11 @@ namespace LibraryProject
                     continue;
                 }
             }
+        }
+
+        public void ReturnBook()
+        {
+            Console.WriteLine("Which book do you want to return?");
         }
     }
 }
