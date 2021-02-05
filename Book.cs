@@ -4,19 +4,32 @@ using System.Text;
 
 namespace LibraryProject
 {
-    public enum RentalStatus { Out, In };
-    class Book
+    class Book : Media
     {
         public string Title { get; set; }
         public string Author { get; set; }
-        public RentalStatus Status { get; set; }
-        public DateTime DueDate { get; set; }
 
-        public Book(string Title, string Author)
+        public Book(string Title, string Author) : base()
         {
             this.Title = Title;
             this.Author = Author;
             this.Status = RentalStatus.In;
+            this.DueDate = new DateTime(DateTime.MaxValue.Ticks);
+        }
+
+        public void CheckOut()
+        {
+            DateTime timeOfCheckOut = DateTime.Now;
+            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+
+            DueDate = dueDate;
+            Status = RentalStatus.Out;
+        }
+
+        public void Return()
+        {
+            DueDate = DateTime.MaxValue;
+            Status = RentalStatus.In;
         }
     }
 }
