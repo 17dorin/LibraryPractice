@@ -112,7 +112,6 @@ namespace LibraryProject
                 Console.WriteLine(e.Message);
             }
 
-
             //Gets the pressed key from user and converts to a number, itended to be a number 1 - size of list
             int option = -1;
             try

@@ -6,9 +6,6 @@ namespace LibraryProject
 {
     class Book : Media
     {
-        public string Title { get; set; }
-        public string Author { get; set; }
-
         public Book(string Title, string Author) : base()
         {
             this.Title = Title;
@@ -17,7 +14,7 @@ namespace LibraryProject
             this.DueDate = new DateTime(DateTime.MaxValue.Ticks);
         }
         //Both CheckOut and Return are called within Catalog
-        public void CheckOut()
+        public override void CheckOut()
         {
             DateTime timeOfCheckOut = DateTime.Now;
             DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);

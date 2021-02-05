@@ -7,7 +7,7 @@ namespace LibraryProject
     //Base class to derive other media from
     public enum RentalStatus { Out, In };
 
-    class Media
+    abstract class Media
     {
         public string Title { get; set; }
         public string Author { get; set; }
@@ -18,5 +18,7 @@ namespace LibraryProject
         {
             Status = RentalStatus.In;
         }
+
+        public abstract void CheckOut();
     }
 }
