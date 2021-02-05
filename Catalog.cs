@@ -30,13 +30,13 @@ namespace LibraryProject
         public void DisplayBooks(List<Book> books)
         {
 
-            Console.WriteLine("\t\t==========OUR=COLLECTION==========");
+            Console.WriteLine("Book list");
 
             if (books.Count != 0)
             {
                 foreach (Book book in books)
                 {
-                    Console.WriteLine($"\n\t\t[{books.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tBook Status: {book.Status}");
+                    Console.WriteLine($"[{books.IndexOf(book) + 1}] \"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
                 }
             }
             else
@@ -85,22 +85,30 @@ namespace LibraryProject
 
         public void ReserveBook()
         {
-            Console.WriteLine("Enter the title of the book you want to check out");
+            Console.WriteLine("Which book do you want to check out?");
             DisplayBooks(this.Books);
-            string input = Console.ReadLine().Trim().ToLower();
+            ConsoleKeyInfo selection = Console.ReadKey();
+            Console.Clear();
 
-            foreach (Book book in this.Books)
+            if (Char.GetNumericValue(selection.KeyChar) - 1 >= 0 && Char.GetNumericValue(selection.KeyChar) - 1 < Books.Count)
             {
-                if (String.Equals(input, book.Title.ToLower()))
+                foreach (Book book in Books)
                 {
-                    Console.WriteLine("Do you want to check out this book? Y/N");
-                    if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                    if (Char.GetNumericValue(selection.KeyChar) - 1 == Books.IndexOf(book))
                     {
-                        book.CheckOut();
+                        Console.WriteLine("Do you want to check out this book? Y/N");
+                        Console.WriteLine($"{book.Title}");
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            book.CheckOut();
+                        }
                     }
                 }
             }
-
+            else
+            {
+                Console.WriteLine("Please enter a valid option");
+            }
         }
 
         public void DisplayMenu()
@@ -133,30 +141,20 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
                     Console.Clear();
-                    Console.WriteLine("\n\n\t\t\t========================");
-                    Console.WriteLine("\t\t\t====Search=by=Author====");
-                    Console.Write("\n\t\t\tAuthor Name: ");
-                    string input = Console.ReadLine().ToLower().Trim();
-                    DisplayBooks(FindAuthor(input));
+                    Console.WriteLine("find author");
                     Console.ReadKey();
-
 
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
                     Console.Clear();
-                    Console.WriteLine("\n\n\t\t\t========================");
-                    Console.WriteLine("\t\t\t====Search=by=Title====");
-                    Console.Write("\n\t\t\tAuthor Name: ");
-                    string input = Console.ReadLine().ToLower().Trim();
-                    DisplayBooks(FindTitle(input));
-
+                    Console.WriteLine("search by title");
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {
                     Console.Clear();
-                    Console.WriteLine("select book");
+                    ReserveBook();
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
