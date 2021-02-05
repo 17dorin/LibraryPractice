@@ -15,14 +15,13 @@ namespace LibraryProject
             this.Author = Author;
         }
 
-
         public void CheckOut()
         {
             DateTime timeOfCheckOut = DateTime.Now;
             DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
 
-            this.DueDate = dueDate;
-            this.Status = RentalStatus.Out;
+            DueDate = dueDate;
+            Status = RentalStatus.Out;
         }
     }
 }

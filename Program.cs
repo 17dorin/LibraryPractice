@@ -7,11 +7,7 @@ namespace LibraryProject
         static void Main(string[] args)
         {
             Catalog catalog = new Catalog();
-
             catalog.DisplayMenu();
-
-          
-
         }
     }
 }
