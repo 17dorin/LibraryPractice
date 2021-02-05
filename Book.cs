@@ -17,6 +17,19 @@ namespace LibraryProject
             this.DueDate = new DateTime(DateTime.MaxValue.Ticks);
         }
 
+        /// <summary>
+        /// Overload Method intended for use by the FILE IO 
+        /// </summary>
+        public Book(string Title, string Author, string Status, string DueDate )
+        {
+            this.Title = Title;
+            this.Author = Author;
+            this.Status = (RentalStatus)Enum.Parse(typeof(RentalStatus), Status);
+            //long dueDateData = long.Parse(DueDate);
+            DateTime dueDate = DateTime.Parse(DueDate);
+            this.DueDate = dueDate;
+        }
+
         public void CheckOut()
         {
             DateTime timeOfCheckOut = DateTime.Now;
@@ -28,7 +41,7 @@ namespace LibraryProject
 
         public override string ToString()
         {
-            return $"{Title}, {Author}, {Status}, {DueDate.Ticks}";
+            return $"{Title}, {Author}, {Status}, {DueDate}";
         }
     }
 }

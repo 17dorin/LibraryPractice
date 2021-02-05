@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Linq;
 
 namespace LibraryProject
@@ -11,6 +12,9 @@ namespace LibraryProject
 
         public Catalog()
         {
+           Books = GenerateBookListFromDisk();
+
+            /*
             Books = new List<Book>();
             Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
@@ -19,6 +23,7 @@ namespace LibraryProject
             Books.Add(new Book("Tell Me What You Want", "Smarty Spice"));
             Books.Add(new Book("Can I Borrow Your Dignity?", "Kirk VanHonkers"));
             Books.Add(new Book("So You Want To Be A Software Developer", "Kimmy Vindaloo"));
+            */
         }
 
         public void DisplayBooks(List<Book> books)
@@ -186,6 +191,34 @@ namespace LibraryProject
                     Console.WriteLine("Book returned");
                 }
             }
+        }
+
+        // FILE IO
+        public static List<Book> GenerateBookListFromDisk()
+        {
+            List<Book> diskBooks = new List<Book>();
+            string fileName = "LibraryCatalog.txt";
+            string path = Path.Combine(Environment.CurrentDirectory, fileName);
+            List<string> booksData = File.ReadAllLines(path).ToList();
+
+            foreach (string line in booksData)
+            {
+                // Create an array of each value separated by delimiter (comma)
+                string[] data = line.Split(',');
+
+                // For each value in the array, trim out in extra space, just in case!
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = data[i].Trim();
+                }
+
+                diskBooks.Add(new Book(data[0], data[1], data[2], data[3]));
+            }
+
+            // Order Alphabetically
+            diskBooks.Sort((x, y) => x.Title.CompareTo(y.Title));
+
+            return diskBooks;
         }
     }
 }
