@@ -38,12 +38,12 @@ namespace LibraryProject
         public List<Book> FindAuthor(string search)
         {
             List<Book> SearchedBooks = new List<Book>();
-            //TODO Fix Lambda expression to find partial string
-            //SearchedBooks = Books.Where(b => b.Author.Any(x => x.Author.ToUpper().Contains(search.ToUpper())));
+
+            search = search.ToLower();
 
             foreach(Book book in Books)
             {
-                if(String.Equals(search, book.Author))
+                if(book.Author.ToLower().Contains(search))
                 {
                     SearchedBooks.Add(book);
                 }
@@ -55,13 +55,14 @@ namespace LibraryProject
 
         public List<Book> FindTitle(string search)
         {
+
             List<Book> SearchedBooks = new List<Book>();
-            //TODO Fix Lambda expression to find partial string
-            //SearchedBooks = Books.Where(b => b.Author.Any(x => x.Author.ToUpper().Contains(search.ToUpper())));
+
+            search = search.ToLower();
 
             foreach (Book book in Books)
             {
-                if (String.Equals(search, book.Title))
+                if (book.Title.ToLower().Contains(search))
                 {
                     SearchedBooks.Add(book);
                 }
