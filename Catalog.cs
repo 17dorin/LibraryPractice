@@ -9,6 +9,7 @@ namespace LibraryProject
     {
         List<Book> Books { get; set; }
 
+        //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
         {
             Books = new List<Book>();
@@ -16,6 +17,7 @@ namespace LibraryProject
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
         }
 
+        //Displays all books/other media with index and related info
         public void DisplayBooks(List<Book> books)
         {
 
@@ -35,6 +37,7 @@ namespace LibraryProject
 
         }
 
+        //Finds books based on Author property with a given string, can find partial matches
         public List<Book> FindAuthor(string search)
         {
             List<Book> SearchedBooks = new List<Book>();
@@ -53,6 +56,7 @@ namespace LibraryProject
 
         }
 
+        //Same as FindAuthor but with Title property
         public List<Book> FindTitle(string search)
         {
 
@@ -72,12 +76,13 @@ namespace LibraryProject
 
         }
 
+        //Checks out a book/other media
         public void ReserveBook()
         {
             Console.WriteLine("Which book do you want to check out?");
             DisplayBooks(this.Books);
 
-            ConsoleKeyInfo selection = Console.ReadKey();
+            ConsoleKeyInfo selection = Console.ReadKey(false);
             double option = Char.GetNumericValue(selection.KeyChar);
 
             Console.Clear();
@@ -86,14 +91,23 @@ namespace LibraryProject
             {
                 foreach (Book book in Books)
                 {
-                    if (Char.GetNumericValue(selection.KeyChar) - 1 == Books.IndexOf(book))
+                    if (option - 1 == Books.IndexOf(book))
                     {
-                        Console.WriteLine("Do you want to check out this book? Y/N");
-                        Console.WriteLine($"{book.Title}");
-                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        if(book.Status == RentalStatus.In)
                         {
-                            book.CheckOut();
+                            Console.WriteLine("Do you want to check out this book? Y/N");
+                            Console.WriteLine($"{book.Title}");
+                            if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                            {
+                                book.CheckOut();
+                                Console.Clear();
+                            }
                         }
+                        else
+                        {
+                            Console.WriteLine("That book is currently out");
+                        }
+
                     }
                 }
             }
@@ -182,9 +196,17 @@ namespace LibraryProject
                 }
             }
 
-            DisplayBooks(outBooks);
+            try
+            {
+                DisplayBooks(outBooks);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
-            ConsoleKeyInfo selection = Console.ReadKey();
+
+            ConsoleKeyInfo selection = Console.ReadKey(false);
             double option = Char.GetNumericValue(selection.KeyChar);
 
             Console.Clear();
@@ -197,13 +219,16 @@ namespace LibraryProject
                     {
                         Console.WriteLine("Do you want to return this book? Y/N");
                         Console.WriteLine($"{book.Title}");
-                        if(Console.ReadKey().Key == ConsoleKey.Y)
+
+                        if(Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
                             if(book.DueDate <= DateTime.Now)
                             {
                                 Console.WriteLine("This book is past due! You'll owe a fine");
                             }
                             book.Return();
+                            Console.Clear();
+
                             Console.WriteLine("Book returned");
                         }
                     }

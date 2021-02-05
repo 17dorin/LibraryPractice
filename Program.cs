@@ -7,6 +7,9 @@ namespace LibraryProject
         static void Main(string[] args)
         {
             Catalog catalog = new Catalog();
+            catalog.ReturnBook();
+            catalog.ReserveBook();
+            catalog.ReserveBook();
             catalog.ReserveBook();
             catalog.ReturnBook();
             Console.WriteLine("Works?");
