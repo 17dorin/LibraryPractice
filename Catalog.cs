@@ -7,26 +7,19 @@ namespace LibraryProject
 {
     class Catalog
     {
-
         List<Book> Books { get; set; }
-
-
 
         public Catalog()
         {
-
-
             Books = new List<Book>();
             Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
-
         }
 
         public void DisplayBooks(List<Book> books)
         {
 
             Console.WriteLine("Book list");
-
 
             if(books.Count != 0)
             {
@@ -78,15 +71,6 @@ namespace LibraryProject
 
         }
 
-
-        public void UpdateDueDate(Book book)
-        {
-            DateTime timeOfCheckOut = DateTime.Now;
-            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
-
-            book.DueDate = dueDate;
-        }
-
         public void DisplayMenu()
         {
             while (true)
@@ -105,9 +89,6 @@ namespace LibraryProject
                 Console.WriteLine("\t\t\t========================");
                 Console.WriteLine("\t\t\tx--/-x--/-x--/-x--/-x--/");
                 Console.WriteLine("\t\t\t========================");
-
-
-
 
                 ConsoleKeyInfo keyInput = Console.ReadKey();
 
@@ -155,6 +136,5 @@ namespace LibraryProject
                 }
             }
         }
-
     }
 }
