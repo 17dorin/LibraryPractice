@@ -86,23 +86,58 @@ namespace LibraryProject
 
         }
 
+        public static int GetNumber()
+        {
+            int option;
+            string unparsed = Console.ReadLine();
+
+            if(!int.TryParse(unparsed, out option))
+            {
+                throw new Exception("Input must be a number of the given options");
+            }
+
+            return option;
+        }
+
         //Checks out a book/other media
         public void ReserveBook()
         {
             Console.WriteLine("Which book do you want to check out?");
-            DisplayBooks(this.Books);
+            try
+            {
+                DisplayBooks(this.Books);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
 
-            ConsoleKeyInfo selection = Console.ReadKey(false);
-            double option = Char.GetNumericValue(selection.KeyChar);
+
+            //Gets the pressed key from user and converts to a number, itended to be a number 1 - size of list
+            int option = -1;
+            try
+            {
+                option = GetNumber();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+
 
             Console.Clear();
 
+            //Makes sure input is within bounds of the list
             if (option - 1 >= 0 && option - 1 < Books.Count)
             {
                 foreach (Book book in Books)
                 {
+                    //Matches input with correct book
                     if (option - 1 == Books.IndexOf(book))
                     {
+                        //Checks if selected book is currently out
                         if(book.Status == RentalStatus.In)
                         {
                             Console.WriteLine("Do you want to check out this book? Y/N");
@@ -203,11 +238,13 @@ namespace LibraryProject
             }
         }
 
+        //Returns a checked out book
         public void ReturnBook()
         {
             List<Book> outBooks = new List<Book>();
             Console.WriteLine("Which book do you want to return?");
 
+            //Adds books in our catalog that are currently out to a different list
             foreach(Book book in Books)
             {
                 if(book.Status == RentalStatus.Out)
@@ -216,6 +253,7 @@ namespace LibraryProject
                 }
             }
 
+            //Tries to print list of out books, throws and handles exception if list is empty
             try
             {
                 DisplayBooks(outBooks);
@@ -225,16 +263,27 @@ namespace LibraryProject
                 Console.WriteLine(e.Message);
             }
 
+            //Gets user key press and converts to a number, intended to be 1 - the size of the list
+            int option = -1;
+            try
+            {
+                option = GetNumber();
+            }
+            catch (Exception e)
+            {
 
-            ConsoleKeyInfo selection = Console.ReadKey(false);
-            double option = Char.GetNumericValue(selection.KeyChar);
+                Console.WriteLine(e.Message);
+            }
+
 
             Console.Clear();
-
+            
+            //Checks to make sure input is within bounds
             if(option - 1 >= 0 && option - 1 < outBooks.Count)
             {
                 foreach (Book book in outBooks)
                 {
+                    //Matches selectes book with the correct book in the list
                     if(option - 1 == outBooks.IndexOf(book))
                     {
                         Console.WriteLine("Do you want to return this book? Y/N");
@@ -242,6 +291,7 @@ namespace LibraryProject
 
                         if(Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
+                            //Checks to see if book is overdue
                             if(book.DueDate <= DateTime.Now)
                             {
                                 Console.WriteLine("This book is past due! You'll owe a fine");
