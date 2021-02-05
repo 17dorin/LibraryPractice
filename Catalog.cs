@@ -7,28 +7,19 @@ namespace LibraryProject
 {
     class Catalog
     {
-<<<<<<< HEAD
 
         List<Book> Books { get; set; }
-=======
-        public List<Book> Books { get; set; }
->>>>>>> c5980a143d5a0e9fba51c51b46e2e0607cce2fa6
+
 
 
         public Catalog()
         {
-            //Initialize Book objects and place them into a list here
-<<<<<<< HEAD
+
 
             Books = new List<Book>();
             Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
 
-=======
-            Books = new List<Book>();
-            Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
-            Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
->>>>>>> c5980a143d5a0e9fba51c51b46e2e0607cce2fa6
         }
 
         public void DisplayBooks(List<Book> books)
@@ -87,10 +78,7 @@ namespace LibraryProject
 
         }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> c5980a143d5a0e9fba51c51b46e2e0607cce2fa6
         public void UpdateDueDate(Book book)
         {
             DateTime timeOfCheckOut = DateTime.Now;
@@ -98,7 +86,7 @@ namespace LibraryProject
 
             book.DueDate = dueDate;
         }
-<<<<<<< HEAD
+
         public void DisplayMenu()
         {
             while (true)
@@ -168,7 +156,5 @@ namespace LibraryProject
             }
         }
 
-=======
->>>>>>> c5980a143d5a0e9fba51c51b46e2e0607cce2fa6
     }
 }
