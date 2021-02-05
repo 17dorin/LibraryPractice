@@ -8,7 +8,8 @@ namespace LibraryProject
         {
             Catalog catalog = new Catalog();
             catalog.ReserveBook();
-
+            catalog.ReturnBook();
+            Console.WriteLine("Works?");
             //catalog.DisplayMenu();
         }
     }

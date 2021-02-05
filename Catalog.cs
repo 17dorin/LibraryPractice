@@ -76,10 +76,13 @@ namespace LibraryProject
         {
             Console.WriteLine("Which book do you want to check out?");
             DisplayBooks(this.Books);
+
             ConsoleKeyInfo selection = Console.ReadKey();
+            double option = Char.GetNumericValue(selection.KeyChar);
+
             Console.Clear();
 
-            if (Char.GetNumericValue(selection.KeyChar) - 1 >= 0 && Char.GetNumericValue(selection.KeyChar) - 1 < Books.Count)
+            if (option - 1 >= 0 && option - 1 < Books.Count)
             {
                 foreach (Book book in Books)
                 {
@@ -168,26 +171,47 @@ namespace LibraryProject
 
         public void ReturnBook()
         {
+            List<Book> outBooks = new List<Book>();
             Console.WriteLine("Which book do you want to return?");
 
             foreach(Book book in Books)
             {
                 if(book.Status == RentalStatus.Out)
                 {
-                    Console.WriteLine($"\"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                    outBooks.Add(book);
                 }
             }
 
-            string input = Console.ReadLine().Trim().ToLower();
+            DisplayBooks(outBooks);
 
-            foreach(Book book in Books)
+            ConsoleKeyInfo selection = Console.ReadKey();
+            double option = Char.GetNumericValue(selection.KeyChar);
+
+            Console.Clear();
+
+            if(option - 1 >= 0 && option - 1 < outBooks.Count)
             {
-                if(book.Status == RentalStatus.Out && book.Title.ToLower() == input)
+                foreach (Book book in outBooks)
                 {
-                    book.Status = RentalStatus.In;
-                    book.DueDate = new DateTime(DateTime.MaxValue.Ticks);
-                    Console.WriteLine("Book returned");
+                    if(option - 1 == outBooks.IndexOf(book))
+                    {
+                        Console.WriteLine("Do you want to return this book? Y/N");
+                        Console.WriteLine($"{book.Title}");
+                        if(Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            if(book.DueDate <= DateTime.Now)
+                            {
+                                Console.WriteLine("This book is past due! You'll owe a fine");
+                            }
+                            book.Return();
+                            Console.WriteLine("Book returned");
+                        }
+                    }
                 }
+            }
+            else
+            {
+                Console.WriteLine("Please enter a valid option");
             }
         }
     }
