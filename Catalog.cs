@@ -161,6 +161,25 @@ namespace LibraryProject
         {
             Console.WriteLine("Which book do you want to return?");
 
+            foreach(Book book in Books)
+            {
+                if(book.Status == RentalStatus.Out)
+                {
+                    Console.WriteLine($"\"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                }
+            }
+
+            string input = Console.ReadLine().Trim().ToLower();
+
+            foreach(Book book in Books)
+            {
+                if(book.Status == RentalStatus.Out && book.Title.ToLower() == input)
+                {
+                    book.Status = RentalStatus.In;
+                    book.DueDate = new DateTime(DateTime.MaxValue.Ticks);
+                    Console.WriteLine("Book returned");
+                }
+            }
         }
     }
 }
