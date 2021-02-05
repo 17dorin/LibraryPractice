@@ -140,12 +140,17 @@ namespace LibraryProject
                         //Checks if selected book is currently out
                         if(book.Status == RentalStatus.In)
                         {
-                            Console.WriteLine("Do you want to check out this book? Y/N");
-                            Console.WriteLine($"{book.Title}");
+                            Console.WriteLine("\n\n\t\tDo you want to check out this book? Y/N");
+                            Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
                                 book.CheckOut();
                                 Console.Clear();
+                                Console.WriteLine("\n\n\t\tYou have checked out: ");
+                                
+                                Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}\n\n\t\t\t\tDue: {book.DueDate}");
+
+
                             }
                         }
                         else
@@ -168,7 +173,7 @@ namespace LibraryProject
             {
                 Console.Clear();
 
-                Console.WriteLine("\n\n\n\t\t\t==== EIDMAR==LIBRARY====");
+                Console.WriteLine("\n\n\n\t\t\t=====EIDMAR=LIBRARY=====");
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
                 Console.WriteLine("\t\t\t[1] Show me the books");
