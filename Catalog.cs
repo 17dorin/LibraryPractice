@@ -7,25 +7,36 @@ namespace LibraryProject
 {
     class Catalog
     {
-        public List<Book> Books { get; set; }
+        List<Book> Books { get; set; }
 
         public Catalog()
         {
-            //Initialize Book objects and place them into a list here
             Books = new List<Book>();
+
             Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
             Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
+            Books.Add(new Book("bbok 3", "anon"));
+            Books.Add(new Book("We as a society have progressed past the need for git", "Me"));
+            Books.Add(new Book("The Pants that Didn't event try", "Timmy Dilly Jr."));
+            Books.Add(new Book("Turn 3", "Dale Earnheardt"));
+            Books.Add(new Book("23 Stab Wounds", "Julius Ceasar"));
+            Books.Add(new Book("Back to nature", "Carlos Mark"));
+            Books.Add(new Book("Everyday is a winding road", "Sheryl Crowe"));
+            Books.Add(new Book("book4", "steve jobs"));
+            Books.Add(new Book("almost time for lunch", "Me"));
+            Books.Add(new Book("time for lunch", "Me Jr."));
         }
 
         public void DisplayBooks(List<Book> books)
         {
-            Console.WriteLine("Book list");
 
-            if(books.Count != 0)
+            Console.WriteLine("\t\t==========OUR=COLLECTION==========");
+
+            if (books.Count != 0)
             {
                 foreach (Book book in books)
                 {
-                    Console.WriteLine($"\"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                    Console.WriteLine($"\n\t\t[{books.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tBook Status: {book.Status}");
                 }
             }
             else
@@ -38,12 +49,12 @@ namespace LibraryProject
         public List<Book> FindAuthor(string search)
         {
             List<Book> SearchedBooks = new List<Book>();
-            //TODO Fix Lambda expression to find partial string
-            //SearchedBooks = Books.Where(b => b.Author.Any(x => x.Author.ToUpper().Contains(search.ToUpper())));
 
-            foreach(Book book in Books)
+            search = search.ToLower();
+
+            foreach (Book book in Books)
             {
-                if(String.Equals(search, book.Author))
+                if (book.Author.ToLower().Contains(search))
                 {
                     SearchedBooks.Add(book);
                 }
@@ -55,13 +66,14 @@ namespace LibraryProject
 
         public List<Book> FindTitle(string search)
         {
+
             List<Book> SearchedBooks = new List<Book>();
-            //TODO Fix Lambda expression to find partial string
-            //SearchedBooks = Books.Where(b => b.Author.Any(x => x.Author.ToUpper().Contains(search.ToUpper())));
+
+            search = search.ToLower();
 
             foreach (Book book in Books)
             {
-                if (String.Equals(search, book.Title))
+                if (book.Title.ToLower().Contains(search))
                 {
                     SearchedBooks.Add(book);
                 }
@@ -71,13 +83,26 @@ namespace LibraryProject
 
         }
 
-        public void UpdateDueDate(Book book)
+        public void ReserveBook()
         {
-            DateTime timeOfCheckOut = DateTime.Now;
-            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+            Console.WriteLine("Enter the title of the book you want to check out");
+            DisplayBooks(this.Books);
+            string input = Console.ReadLine().Trim().ToLower();
 
-            book.DueDate = dueDate;
+            foreach (Book book in this.Books)
+            {
+                if (String.Equals(input, book.Title.ToLower()))
+                {
+                    Console.WriteLine("Do you want to check out this book? Y/N");
+                    if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                    {
+                        book.CheckOut();
+                    }
+                }
+            }
+
         }
+
         public void DisplayMenu()
         {
             while (true)
@@ -97,9 +122,6 @@ namespace LibraryProject
                 Console.WriteLine("\t\t\tx--/-x--/-x--/-x--/-x--/");
                 Console.WriteLine("\t\t\t========================");
 
-
-
-
                 ConsoleKeyInfo keyInput = Console.ReadKey();
 
                 if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
@@ -111,14 +133,24 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
                     Console.Clear();
-                    Console.WriteLine("find author");
+                    Console.WriteLine("\n\n\t\t\t========================");
+                    Console.WriteLine("\t\t\t====Search=by=Author====");
+                    Console.Write("\n\t\t\tAuthor Name: ");
+                    string input = Console.ReadLine().ToLower().Trim();
+                    DisplayBooks(FindAuthor(input));
                     Console.ReadKey();
+
 
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
                     Console.Clear();
-                    Console.WriteLine("search by title");
+                    Console.WriteLine("\n\n\t\t\t========================");
+                    Console.WriteLine("\t\t\t====Search=by=Title====");
+                    Console.Write("\n\t\t\tAuthor Name: ");
+                    string input = Console.ReadLine().ToLower().Trim();
+                    DisplayBooks(FindTitle(input));
+
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
@@ -143,6 +175,31 @@ namespace LibraryProject
                 {
                     Console.Clear();
                     continue;
+                }
+            }
+        }
+
+        public void ReturnBook()
+        {
+            Console.WriteLine("Which book do you want to return?");
+
+            foreach (Book book in Books)
+            {
+                if (book.Status == RentalStatus.Out)
+                {
+                    Console.WriteLine($"\"{book.Title}\", Written by {book.Author}. The book is currently {book.Status}");
+                }
+            }
+
+            string input = Console.ReadLine().Trim().ToLower();
+
+            foreach (Book book in Books)
+            {
+                if (book.Status == RentalStatus.Out && book.Title.ToLower() == input)
+                {
+                    book.Status = RentalStatus.In;
+                    book.DueDate = new DateTime(DateTime.MaxValue.Ticks);
+                    Console.WriteLine("Book returned");
                 }
             }
         }

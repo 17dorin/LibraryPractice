@@ -9,7 +9,6 @@ namespace LibraryProject
             Catalog catalog = new Catalog();
 
             catalog.DisplayMenu();
-          
 
         }
     }
