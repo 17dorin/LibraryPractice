@@ -19,10 +19,8 @@ namespace LibraryProject
             this.Status = RentalStatus.In;
         }
 
-        //public override string ToString()
-        //{
-        //}
-        }
+
+    }
 
 
     
