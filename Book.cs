@@ -4,19 +4,15 @@ using System.Text;
 
 namespace LibraryProject
 {
-    public enum RentalStatus { Out, In };
-    class Book
+    class Book : Media
     {
         public string Title { get; set; }
         public string Author { get; set; }
-        public RentalStatus Status { get; set; }
-        public DateTime DueDate { get; set; }
 
-        public Book(string Title, string Author)
+        public Book(string Title, string Author) : base()
         {
             this.Title = Title;
             this.Author = Author;
-            this.Status = RentalStatus.In;
         }
     }
 }

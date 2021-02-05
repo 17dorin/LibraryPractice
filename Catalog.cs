@@ -69,12 +69,6 @@ namespace LibraryProject
 
         }
 
-        public void UpdateDueDate(Book book)
-        {
-            DateTime timeOfCheckOut = DateTime.Now;
-            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
 
-            book.DueDate = dueDate;
-        }
     }
 }
