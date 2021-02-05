@@ -22,6 +22,7 @@ namespace LibraryProject
             DateTime timeOfCheckOut = DateTime.Now;
             DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
 
+
             DueDate = dueDate;
             Status = RentalStatus.Out;
         }

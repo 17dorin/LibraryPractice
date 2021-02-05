@@ -31,7 +31,7 @@ namespace LibraryProject
         public void DisplayBooks(List<Book> books)
         {
 
-            Console.WriteLine("\t\t==========OUR=COLLECTION==========");
+            
 
             if(books.Count != 0)
             {
@@ -179,7 +179,7 @@ namespace LibraryProject
                 Console.WriteLine("\t\t\t[1] Show me the books");
                 Console.WriteLine("\t\t\t[2] Who wrote it?");
                 Console.WriteLine("\t\t\t[3] What's it called?");
-                Console.WriteLine("\t\t\t[4] Book status");
+                Console.WriteLine("\t\t\t[4] Borrow a book");
                 Console.WriteLine("\t\t\t[5] Give it back");
                 Console.WriteLine("\t\t\t[6] Let me out");
                 Console.WriteLine("\t\t\t========================");
@@ -191,6 +191,7 @@ namespace LibraryProject
                 if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
                 {
                     Console.Clear();
+                    Console.WriteLine("\t\t==========OUR=COLLECTION==========");
                     DisplayBooks(Books);
                     Console.ReadKey();
                 }
@@ -226,6 +227,7 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
+                    Console.WriteLine("\t\t\t==========BORROWED=BOOKS==========");
                     ReturnBook();
                     Console.ReadKey();
                 }
