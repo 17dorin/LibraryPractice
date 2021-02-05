@@ -74,21 +74,49 @@ namespace LibraryProject
 
         public void ReserveBook()
         {
-            Console.WriteLine("Enter the title of the book you want to check out");
+            Console.WriteLine("Which book do you want to check out?");
             DisplayBooks(this.Books);
-            string input = Console.ReadLine().Trim().ToLower();
+            ConsoleKeyInfo selection = Console.ReadKey();
+            Console.Clear();
 
-            foreach(Book book in this.Books)
+            if (Char.GetNumericValue(selection.KeyChar) - 1 >= 0 && Char.GetNumericValue(selection.KeyChar) - 1 < Books.Count)
             {
-                if(String.Equals(input, book.Title.ToLower()))
+                foreach (Book book in Books)
                 {
-                    Console.WriteLine("Do you want to check out this book? Y/N");
-                    if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                    if (Char.GetNumericValue(selection.KeyChar) - 1 == Books.IndexOf(book))
                     {
-                        book.CheckOut();
+                        Console.WriteLine("Do you want to check out this book? Y/N");
+                        Console.WriteLine($"{book.Title}");
+                        if (Console.ReadKey().Key == ConsoleKey.Y)
+                        {
+                            book.CheckOut();
+                        }
                     }
                 }
             }
+            else
+            {
+                Console.WriteLine("Please enter a valid option");
+            }
+
+           
+
+
+            //Console.WriteLine("Enter the title of the book you want to check out");
+            //DisplayBooks(this.Books);
+            //string input = Console.ReadLine().Trim().ToLower();
+
+            //foreach(Book book in this.Books)
+            //{
+            //    if(String.Equals(input, book.Title.ToLower()))
+            //    {
+            //        Console.WriteLine("Do you want to check out this book? Y/N");
+            //        if (Console.ReadKey(false).Key == ConsoleKey.Y)
+            //        {
+            //            book.CheckOut();
+            //        }
+            //    }
+            //}
 
         }
 
