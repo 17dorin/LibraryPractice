@@ -1,38 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.IO;
 using System.Linq;
 
 namespace LibraryProject
 {
     class Catalog
     {
-        List<Book> Books { get; set; }
+        public List<Book> Books { get; set; }
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
         {
-            Books = new List<Book>();
-
-            Books.Add(new Book("The Pants that Couldn't", "Timmy Dilly"));
-            Books.Add(new Book("Unless You Don't Mind", "Sarah Pessica Jarker"));
-            Books.Add(new Book("bbok 3", "anon"));
-            Books.Add(new Book("We as a society have progressed past the need for git", "Me"));
-            Books.Add(new Book("The Pants that Didn't event try", "Timmy Dilly Jr."));
-            Books.Add(new Book("Turn 3", "Dale Earnheardt"));
-            Books.Add(new Book("23 Stab Wounds", "Julius Ceasar"));
-            Books.Add(new Book("Back to nature", "Carlos Mark"));
-            Books.Add(new Book("Everyday is a winding road", "Sheryl Crowe"));
-            Books.Add(new Book("book4", "steve jobs"));
-            Books.Add(new Book("almost time for lunch", "Me"));
-            Books.Add(new Book("time for lunch", "Me Jr."));
+           Books = GenerateBookListFromDisk();
         }
 
         //Displays all books/other media with index and related info
         public void DisplayBooks(List<Book> books)
         {
 
-            
+            Console.WriteLine("Book list");
 
             if(books.Count != 0)
             {
@@ -43,7 +31,7 @@ namespace LibraryProject
             }
             else
             {
-                throw new Exception("\n\n\n\t\t\tNo books were found");
+                Console.WriteLine("\n\n\n\t\t\tNo books were found");
             }
 
         }
@@ -316,6 +304,34 @@ namespace LibraryProject
             {
                 Console.WriteLine("Please enter a valid option");
             }
+        }
+
+        // FILE IO
+        public static List<Book> GenerateBookListFromDisk()
+        {
+            List<Book> diskBooks = new List<Book>();
+            string fileName = "LibraryCatalog.txt";
+            string path = Path.Combine(Environment.CurrentDirectory, fileName);
+            List<string> booksData = File.ReadAllLines(path).ToList();
+
+            foreach (string line in booksData)
+            {
+                // Create an array of each value separated by delimiter (comma)
+                string[] data = line.Split(',');
+
+                // For each value in the array, trim out in extra space, just in case!
+                for (int i = 0; i < data.Length; i++)
+                {
+                    data[i] = data[i].Trim();
+                }
+
+                diskBooks.Add(new Book(data[0], data[1], data[2], data[3]));
+            }
+
+            // Order Alphabetically
+            diskBooks.Sort((x, y) => x.Title.CompareTo(y.Title));
+
+            return diskBooks;
         }
     }
 }
