@@ -208,7 +208,7 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {
                     Console.Clear();
-                    Console.WriteLine("\t\t\t==========BORROWED=BOOKS==========");
+                    Console.WriteLine("\t\t\t==========BORROWED=ITEMS==========");
                     ReturnBook();
                     Console.ReadKey();
                 }
