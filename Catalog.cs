@@ -201,7 +201,7 @@ namespace LibraryProject
                     Console.Clear();
                     Console.WriteLine("\n\n\t\t\t========================");
                     Console.WriteLine("\t\t\t====Search=by=Title====");
-                    Console.Write("\n\t\t\tAuthor Name: ");
+                    Console.Write("\n\t\t\tTitle: ");
                     string input = Console.ReadLine().ToLower().Trim();
                     DisplayBooks(FindTitle(input));
 
