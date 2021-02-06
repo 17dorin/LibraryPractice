@@ -20,7 +20,6 @@ namespace LibraryProject
         public void DisplayBooks(List<Book> books)
         {
 
-            Console.WriteLine("Book list");
 
             if(books.Count != 0)
             {
@@ -31,7 +30,7 @@ namespace LibraryProject
             }
             else
             {
-                Console.WriteLine("\n\n\n\t\t\tNo books were found");
+                Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
             }
 
         }
@@ -82,7 +81,7 @@ namespace LibraryProject
 
             if(!int.TryParse(unparsed, out option))
             {
-                throw new Exception("Input must be a number of the given options");
+                throw new Exception("\n\n\t\tInput must be a number of the given options");
             }
 
             return option;
@@ -91,7 +90,7 @@ namespace LibraryProject
         //Checks out a book/other media
         public void ReserveBook()
         {
-            Console.WriteLine("Which book do you want to check out?");
+            Console.WriteLine("\n\n\t\t--Choose-a-[#]-to-borrow--\n\t\t------------or------------\n\t\t-------LEAVE--[ESC]-------\n");
             try
             {
                 DisplayBooks(this.Books);
@@ -129,7 +128,7 @@ namespace LibraryProject
                         //Checks if selected book is currently out
                         if(book.Status == RentalStatus.In)
                         {
-                            Console.WriteLine("\n\n\t\tDo you want to check out this book? Y/N");
+                            Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
                             Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
@@ -144,7 +143,7 @@ namespace LibraryProject
                         }
                         else
                         {
-                            Console.WriteLine("That book is currently out");
+                            Console.WriteLine($"\n\n\t\tThat item is currently checked out until {book.DueDate}");
                         }
 
                     }
@@ -152,7 +151,7 @@ namespace LibraryProject
             }
             else
             {
-                Console.WriteLine("Please enter a valid option");
+                Console.WriteLine("\n\n\t\tPlease enter a valid option\n\n\t\tPress [ENTER] to return to main menu");
             }
         }
 
@@ -165,12 +164,11 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\n\t\t\t=====EIDMAR=LIBRARY=====");
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
-                Console.WriteLine("\t\t\t[1] Show me the books");
+                Console.WriteLine("\t\t\t[1] Our media");
                 Console.WriteLine("\t\t\t[2] Who wrote it?");
                 Console.WriteLine("\t\t\t[3] What's it called?");
-                Console.WriteLine("\t\t\t[4] Borrow a book");
-                Console.WriteLine("\t\t\t[5] Give it back");
-                Console.WriteLine("\t\t\t[6] Let me out");
+                Console.WriteLine("\t\t\t[4] Give it back");
+                Console.WriteLine("\t\t\t[5] Let me out");
                 Console.WriteLine("\t\t\t========================");
                 Console.WriteLine("\t\t\tx--/-x--/-x--/-x--/-x--/");
                 Console.WriteLine("\t\t\t========================");
@@ -181,14 +179,14 @@ namespace LibraryProject
                 {
                     Console.Clear();
                     Console.WriteLine("\t\t==========OUR=COLLECTION==========");
-                    DisplayBooks(Books);
+                    ReserveBook();
                     Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
                     Console.Clear();
                     Console.WriteLine("\n\n\t\t\t========================");
-                    Console.WriteLine("\t\t\t====Search=by=Author====");
+                    Console.WriteLine("\t\t\t====Search=by=Author====\n");
                     Console.Write("\n\t\t\tAuthor Name: ");
                     string input = Console.ReadLine().ToLower().Trim();
                     DisplayBooks(FindAuthor(input));
@@ -199,9 +197,9 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
                     Console.Clear();
-                    Console.WriteLine("\n\n\t\t\t========================");
-                    Console.WriteLine("\t\t\t====Search=by=Title====");
-                    Console.Write("\n\t\t\tAuthor Name: ");
+                    Console.WriteLine("\n\n\t\t\t=======================");
+                    Console.WriteLine("\t\t\t====Search=by=Title====\n");
+                    Console.Write("\n\t\t\tBook Title: ");
                     string input = Console.ReadLine().ToLower().Trim();
                     DisplayBooks(FindTitle(input));
 
@@ -210,17 +208,11 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {
                     Console.Clear();
-                    ReserveBook();
-                    Console.ReadKey();
-                }
-                else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
-                {
-                    Console.Clear();
                     Console.WriteLine("\t\t\t==========BORROWED=BOOKS==========");
                     ReturnBook();
                     Console.ReadKey();
                 }
-                else if (keyInput.Key == ConsoleKey.D6 || keyInput.Key == ConsoleKey.NumPad6)
+                else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
                     Console.WriteLine("\n\n\n\t\t\tLater.\n\n\n\n\n\n");
@@ -238,7 +230,7 @@ namespace LibraryProject
         public void ReturnBook()
         {
             List<Book> outBooks = new List<Book>();
-            Console.WriteLine("Which book do you want to return?");
+            Console.WriteLine("\n\n\t\tWhich book do you want to return?");
 
             //Adds books in our catalog that are currently out to a different list
             foreach(Book book in Books)
@@ -282,7 +274,7 @@ namespace LibraryProject
                     //Matches selectes book with the correct book in the list
                     if(option - 1 == outBooks.IndexOf(book))
                     {
-                        Console.WriteLine("Do you want to return this book? Y/N");
+                        Console.WriteLine("\n\nDo you want to return this item? Y/N");
                         Console.WriteLine($"{book.Title}");
 
                         if(Console.ReadKey(false).Key == ConsoleKey.Y)
@@ -290,12 +282,12 @@ namespace LibraryProject
                             //Checks to see if book is overdue
                             if(book.DueDate <= DateTime.Now)
                             {
-                                Console.WriteLine("This book is past due! You'll owe a fine");
+                                Console.WriteLine("\n\n\t\tThis item is past due! \n\n\t\tOpen your wallet, miscreant.");
                             }
                             book.Return();
                             Console.Clear();
 
-                            Console.WriteLine("Book returned");
+                            Console.WriteLine("\n\n\t\tItem returned to inventory");
                         }
                     }
                 }
