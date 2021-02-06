@@ -20,5 +20,11 @@ namespace LibraryProject
         }
 
         public abstract void CheckOut();
+
+        public void Return()
+        {
+            DueDate = DateTime.MaxValue;
+            Status = RentalStatus.In;
+        }
     }
 }

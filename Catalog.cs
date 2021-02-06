@@ -8,12 +8,12 @@ namespace LibraryProject
 {
     class Catalog
     {
-        List<Media> Pieces { get; set; }
+        public List<Media> Pieces { get; set; }
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
         {
-           Books = GenerateBookListFromDisk();
+           Pieces = GenerateBookListFromDisk();
         }
 
         //Displays all books/other media with index and related info
@@ -120,23 +120,23 @@ namespace LibraryProject
             //Makes sure input is within bounds of the list
             if (option - 1 >= 0 && option - 1 < Pieces.Count)
             {
-                foreach (Book book in Pieces)
+                foreach (Media piece in Pieces)
                 {
                     //Matches input with correct book
-                    if (option - 1 == Pieces.IndexOf(book))
+                    if (option - 1 == Pieces.IndexOf(piece))
                     {
                         //Checks if selected book is currently out
-                        if(book.Status == RentalStatus.In)
+                        if(piece.Status == RentalStatus.In)
                         {
                             Console.WriteLine("\n\n\t\tDo you want to check out this book? Y/N");
-                            Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}");
+                            Console.WriteLine($"\n\t\t\tTitle: \"{piece.Title}\" \n\t\t\tAuthor: {piece.Author}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
-                                book.CheckOut();
+                                piece.CheckOut();
                                 Console.Clear();
                                 Console.WriteLine("\n\n\t\tYou have checked out: ");
                                 
-                                Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}\n\n\t\t\t\tDue: {book.DueDate}");
+                                Console.WriteLine($"\n\t\t\tTitle: \"{piece.Title}\" \n\t\t\tAuthor: {piece.Author}\n\n\t\t\t\tDue: {piece.DueDate}");
 
 
                             }
@@ -237,22 +237,22 @@ namespace LibraryProject
         //Returns a checked out book
         public void ReturnBook()
         {
-            List<Book> outBooks = new List<Book>();
+            List<Media> outMedia = new List<Media>();
             Console.WriteLine("Which book do you want to return?");
 
             //Adds books in our catalog that are currently out to a different list
-            foreach(Book book in Pieces)
+            foreach(Media piece in Pieces)
             {
-                if(book.Status == RentalStatus.Out)
+                if(piece.Status == RentalStatus.Out)
                 {
-                    outBooks.Add(book);
+                    outMedia.Add(piece);
                 }
             }
 
             //Tries to print list of out books, throws and handles exception if list is empty
             try
             {
-                DisplayBooks(outBooks);
+                DisplayBooks(outMedia);
             }
             catch (Exception e)
             {
@@ -275,24 +275,24 @@ namespace LibraryProject
             Console.Clear();
             
             //Checks to make sure input is within bounds
-            if(option - 1 >= 0 && option - 1 < outBooks.Count)
+            if(option - 1 >= 0 && option - 1 < outMedia.Count)
             {
-                foreach (Book book in outBooks)
+                foreach (Media piece in outMedia)
                 {
                     //Matches selectes book with the correct book in the list
-                    if(option - 1 == outBooks.IndexOf(book))
+                    if(option - 1 == outMedia.IndexOf(piece))
                     {
                         Console.WriteLine("Do you want to return this book? Y/N");
-                        Console.WriteLine($"{book.Title}");
+                        Console.WriteLine($"{piece.Title}");
 
                         if(Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
                             //Checks to see if book is overdue
-                            if(book.DueDate <= DateTime.Now)
+                            if(piece.DueDate <= DateTime.Now)
                             {
                                 Console.WriteLine("This book is past due! You'll owe a fine");
                             }
-                            book.Return();
+                            piece.Return();
                             Console.Clear();
 
                             Console.WriteLine("Book returned");
@@ -307,9 +307,9 @@ namespace LibraryProject
         }
 
         // FILE IO
-        public static List<Book> GenerateBookListFromDisk()
+        public static List<Media> GenerateBookListFromDisk()
         {
-            List<Book> diskBooks = new List<Book>();
+            List<Media> diskBooks = new List<Media>();
             string fileName = "LibraryCatalog.txt";
             string path = Path.Combine(Environment.CurrentDirectory, fileName);
             List<string> booksData = File.ReadAllLines(path).ToList();

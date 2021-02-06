@@ -43,10 +43,11 @@ namespace LibraryProject
             return $"{Title}, {Author}, {Status}, {DueDate}";
         }
 
-        public void Return()
-        {
-            DueDate = DateTime.MaxValue;
-            Status = RentalStatus.In;
-        }
+        //Moved definition for Return into abstract class
+        //public override void Return()
+        //{
+        //    DueDate = DateTime.MaxValue;
+        //    Status = RentalStatus.In;
+        //}
     }
 }
