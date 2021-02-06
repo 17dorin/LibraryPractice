@@ -31,7 +31,7 @@ namespace LibraryProject
             }
             else
             {
-                throw new Exception("\n\n\n\t\t\tNo books were found");
+                Console.WriteLine("\n\n\n\t\t\tNo books were found");
             }
 
         }
