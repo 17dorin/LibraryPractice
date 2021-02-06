@@ -12,18 +12,35 @@ namespace LibraryProject
             Catalog catalog = new Catalog();
 
             catalog.DisplayMenu();
+
+            SaveAndExitApp("LibraryCatalog", catalog);
         }
 
+        //Will pull initial catalog from given file, then will save catalog to file in the bin
         private static void SaveAndExitApp(string fileName, Catalog catalog)
         {
-            using (var writer = File.AppendText($"{fileName}.txt"))
+            string path = Path.Combine(Environment.CurrentDirectory, $"{fileName}.txt");
+            string csv = null;
+            foreach (Media piece in catalog.Pieces)
             {
-                foreach (var book in catalog.Pieces)
-                {
-                    writer.WriteLine(book.ToString());
-                }
+                csv += piece.ToString() + "\n";
             }
+
+            File.WriteAllText(path, csv);
         }
+
+        //private static void SaveAndExitApp(string fileName, Catalog catalog)
+        //{
+
+        //    string path = Path.Combine(Environment.CurrentDirectory, $"{fileName}.txt");
+        //    using (var writer = File.WriteAllText(path))
+        //    {
+        //        foreach (var book in catalog.Pieces)
+        //        {
+        //            writer.WriteLine(book.ToString());
+        //        }
+        //    }
+        //}
 
         //public static List<Book> GenerateBookListFromDisk()
         //{

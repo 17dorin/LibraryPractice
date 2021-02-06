@@ -19,12 +19,13 @@ namespace LibraryProject
         /// </summary>
         public Book(string Title, string Author, string Status, string DueDate )
         {
+            //var format = "MM/dd/yyyy HH:mm:ss";
+
             this.Title = Title;
             this.Author = Author;
             this.Status = (RentalStatus)Enum.Parse(typeof(RentalStatus), Status);
             //long dueDateData = long.Parse(DueDate);
-            DateTime dueDate = DateTime.Parse(DueDate);
-            this.DueDate = dueDate;
+            this.DueDate = DateTime.Parse(DueDate);
         }
 
         //Both CheckOut and Return are called within Catalog
