@@ -197,9 +197,11 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
                     Console.Clear();
+
                     Console.WriteLine("\n\n\t\t\t=======================");
                     Console.WriteLine("\t\t\t====Search=by=Title====\n");
                     Console.Write("\n\t\t\tBook Title: ");
+
                     string input = Console.ReadLine().ToLower().Trim();
                     DisplayBooks(FindTitle(input));
 
