@@ -12,9 +12,9 @@ namespace LibraryProject
         public RentalStatus Status { get; set; }
         public DateTime DueDate { get; set; }
 
-        public Media()
+        protected Media()
         {
-            Status = RentalStatus.In;
+            Return();
         }
         public abstract void CheckOut();
 

@@ -6,3 +6,4 @@ Tell Me What You Want, Smarty Spice, In, 12/31/9999 11:59:59 PM
 Can I Borrow Your Dignity?, Kirk VanHonkers, In, 12/31/9999 11:59:59 PM
 So You Want To Be A Software Developer, Kimmy Vindaloo, In, 12/31/9999 11:59:59 PM
 This Book Was Created In A Text File, Crammy Emsoory, In, 12/12/5555 10:10:10 PM
+Another Book From The Proj Dir, Wam Tonio, In, 12/12/5555 10:10:10 PM

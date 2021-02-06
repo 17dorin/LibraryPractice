@@ -4,26 +4,24 @@ using System.Text;
 
 namespace LibraryProject
 {
-    class Book : Media
+    class Magazine : Media
     {
         public string Title { get; set; }
-        public string Author { get; set; }
+        public string Issue { get; set; }
 
-        public Book(string Title, string Author) : base()
+        public Magazine(string Title, string Issue) : base()
         {
             this.Title = Title;
-            this.Author = Author;
-            this.Status = RentalStatus.In;
-            this.DueDate = new DateTime(DateTime.MaxValue.Ticks);
+            this.Issue = Issue;
         }
 
         /// <summary>
         /// Overload Method intended for use by the FILE IO 
         /// </summary>
-        public Book(string Title, string Author, string Status, string DueDate )
+        public Magazine(string Title, string Issue, string Status, string DueDate)
         {
             this.Title = Title;
-            this.Author = Author;
+            this.Issue = Issue;
             this.Status = (RentalStatus)Enum.Parse(typeof(RentalStatus), Status);
             DateTime dueDate = DateTime.Parse(DueDate);
             this.DueDate = dueDate;
@@ -33,7 +31,7 @@ namespace LibraryProject
         public override void CheckOut()
         {
             DateTime timeOfCheckOut = DateTime.Now;
-            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 14);
+            DateTime dueDate = new DateTime(timeOfCheckOut.Year, timeOfCheckOut.Month, timeOfCheckOut.Day + 2);
 
 
             DueDate = dueDate;
@@ -42,7 +40,7 @@ namespace LibraryProject
 
         public override string ToString()
         {
-            return $"{Title}, {Author}, {Status}, {DueDate}";
+            return $"{Title}, {Issue}, {Status}, {DueDate}";
         }
     }
 }
