@@ -167,7 +167,7 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\n\t\t\t=====EIDMAR=LIBRARY=====");
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
-                Console.WriteLine("\t\t\t[1] Our media");
+                Console.WriteLine("\t\t\t[1] Our collection");
                 Console.WriteLine("\t\t\t[2] Who wrote it?");
                 Console.WriteLine("\t\t\t[3] What's it called?");
                 Console.WriteLine("\t\t\t[4] Give it back");
