@@ -74,46 +74,61 @@ namespace LibraryProject
 
         }
 
-        //Finds books based on Author property with a given string, can find partial matches
-        public List<Book> FindAuthor(string search)
+        public void SearchMedia(string input)
         {
-            List<Book> SearchedBooks = new List<Book>();
+            string search = input.Trim().ToLower();
+            int index = 1;
 
-            search = search.ToLower();
-
-            foreach(Book book in Books)
+            foreach(Media piece in Medias)
             {
-                if(book.Author.ToLower().Contains(search))
+                if(piece.ToString().ToLower().Contains(search))
                 {
-                    SearchedBooks.Add(book);
+                    Console.WriteLine($"[{index}] {piece.ToString()}");
+                    index++;
                 }
             }
-
-            return SearchedBooks;
-
         }
+
+        //Finds books based on Author property with a given string, can find partial matches
+        //public List<Book> FindAuthor(string search)
+        //{
+        //    List<Book> SearchedBooks = new List<Book>();
+
+        //    search = search.ToLower();
+
+        //    foreach(Book book in Books)
+        //    {
+        //        if(book.Author.ToLower().Contains(search))
+        //        {
+        //            SearchedBooks.Add(book);
+        //        }
+        //    }
+
+        //    return SearchedBooks;
+
+        //}
 
         //Same as FindAuthor but with Title property
-        public List<Book> FindTitle(string search)
-        {
+        //public List<Book> FindTitle(string search)
+        //{
 
-            List<Book> SearchedBooks = new List<Book>();
+        //    List<Book> SearchedBooks = new List<Book>();
 
-            search = search.ToLower();
+        //    search = search.ToLower();
 
-            foreach (Book book in Books)
-            {
-                if (book.Title.ToLower().Contains(search))
-                {
-                    SearchedBooks.Add(book);
-                }
-            }
+        //    foreach (Book book in Books)
+        //    {
+        //        if (book.Title.ToLower().Contains(search))
+        //        {
+        //            SearchedBooks.Add(book);
+        //        }
+        //    }
 
-            return SearchedBooks;
+        //    return SearchedBooks;
 
-        }
+        //}
 
-        public static int GetNumber()
+        static int GetNumber()
         {
             int option;
             string unparsed = Console.ReadLine();
@@ -274,7 +289,7 @@ namespace LibraryProject
                     Console.WriteLine("\t\t\t====Search=by=Author====\n");
                     Console.Write("\n\t\t\tAuthor Name: ");
                     string input = Console.ReadLine().ToLower().Trim();
-                    DisplayBooks();
+                    SearchMedia(input);
                     Console.ReadKey();
 
 
@@ -288,7 +303,7 @@ namespace LibraryProject
                     Console.Write("\n\t\t\tBook Title: ");
 
                     string input = Console.ReadLine().ToLower().Trim();
-                    DisplayBooks();
+                    SearchMedia(input);
 
                     Console.ReadKey();
                 }
