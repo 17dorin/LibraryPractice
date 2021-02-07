@@ -23,5 +23,6 @@ namespace LibraryProject
             DueDate = DateTime.MaxValue;
             Status = RentalStatus.In;
         }
+
     }
 }
