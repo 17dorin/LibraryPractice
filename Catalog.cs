@@ -11,6 +11,7 @@ namespace LibraryProject
         public List<Book> Books { get; set; }
         public List<MusicCD> CDs { get; set; }
         public List<Magazine> Magazines { get; set; }
+        public List<Media> CompleteCatalog { get; set; }
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
@@ -18,6 +19,12 @@ namespace LibraryProject
             Books = CatalogToDisk.GenerateBookListFromDisk();
             CDs = CatalogToDisk.GenerateMusicCdListFromDisk();
             Magazines = CatalogToDisk.GenerateMagazineListFromDisk();
+
+            CompleteCatalog = new List<Media>();
+            CompleteCatalog.AddRange(Books);
+            CompleteCatalog.AddRange(CDs);
+            CompleteCatalog.AddRange(Magazines);
+
         }
 
         //Displays all books/other media with index and related info
@@ -36,6 +43,22 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
             }
 
+        }
+
+        public void DisplayMedia(List<Media> media)
+        {
+
+            if (media.Count != 0)
+            {
+                foreach (var item in media)
+                {
+                    Console.WriteLine(item.ToString()); // here we could use a different method, but something each abstract class has a version of
+                }
+            }
+            else
+            {
+                //uh oh
+            }
         }
 
         //Finds books based on Author property with a given string, can find partial matches
@@ -76,6 +99,19 @@ namespace LibraryProject
             return SearchedBooks;
 
         }
+
+/*        public List<Media> FindMedia(string search)
+        {
+            List<Media> searchResults = new List<Media>();
+
+            search = search.ToLower();
+
+            foreach (var item in collection)
+            {
+
+            }
+
+        }*/
 
         public static int GetNumber()
         {
