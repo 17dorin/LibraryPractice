@@ -129,7 +129,7 @@ namespace LibraryProject
         //Checks out a book/other media
         public void ReserveBook()
         {
-            Console.WriteLine("\n\n\t\t--Choose-a-[#]-to-borrow--\n\t\t------------or------------\n\t\t-------LEAVE--[ESC]-------\n");
+            //Console.WriteLine("\n\n\t\t--Choose-a-[#]-to-borrow--\n\t\t------------or------------\n\t\t-------LEAVE--[ESC]-------\n");
             try
             {
                 DisplayMediaOptions();
@@ -347,7 +347,8 @@ namespace LibraryProject
 
         public void DisplayAllMedia()
         {
-            for (int i = 0; i < Medias.Count; i++)
+            int i = 0;
+            for (i = 0; i < Medias.Count; i++)
             {
 
             }
@@ -355,7 +356,7 @@ namespace LibraryProject
             {
                 foreach (Book book in Medias)
                 {
-                    Console.WriteLine($"\n\t\t[{Medias.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
+                    Console.WriteLine($"\n\t\t[{i}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
                 }
 
 
@@ -364,14 +365,14 @@ namespace LibraryProject
             {
                 foreach (Magazine magazine in Medias)
                 {
-                    Console.WriteLine($"\n\t\t[{Medias.IndexOf(magazine) + 1}]-----Title: \"{magazine.Title}\" \n\t\t\tIssue: {magazine.Issue} \n\t\t\tStatus: {magazine.Status}");
+                    Console.WriteLine($"\n\t\t[{i}]-----Title: \"{magazine.Title}\" \n\t\t\tIssue: {magazine.Issue} \n\t\t\tStatus: {magazine.Status}");
                 }
             }
             if (CDs.Count != 0)
             {
                 foreach (MusicCD music in Medias)
                 {
-                    Console.WriteLine($"\n\t\t[{Medias.IndexOf(music) + 1}]-----Album: \"{music.Album}\" \n\t\t\tArtist: {music.Artist} \n\t\t\tStatus: {music.Status}");
+                    Console.WriteLine($"\n\t\t[{i}]-----Album: \"{music.Album}\" \n\t\t\tArtist: {music.Artist} \n\t\t\tStatus: {music.Status}");
                 }
             }
             else
