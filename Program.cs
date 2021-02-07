@@ -11,8 +11,7 @@ namespace LibraryProject
         {
             Catalog catalog = new Catalog();
 
-            //catalog.DisplayMenu();
-            catalog.DisplayMediaOptions();
+            catalog.DisplayMenu();
         }
     }
 }

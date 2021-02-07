@@ -21,6 +21,10 @@ namespace LibraryProject
             Books = CatalogToDisk.GenerateBookListFromDisk();
             CDs = CatalogToDisk.GenerateMusicCdListFromDisk();
             Magazines = CatalogToDisk.GenerateMagazineListFromDisk();
+            Medias = new List<Media>();
+            Medias.AddRange(Books);
+            Medias.AddRange(Magazines);
+            Medias.AddRange(CDs);
         }
 
         //Displays all books/other media with index and related info
@@ -39,13 +43,13 @@ namespace LibraryProject
             }
 
         }
-        public void DisplayMagazines(List<Magazine> magazines)
+        public void DisplayMagazines()
         {
-            if (magazines.Count != 0)
+            if (Magazines.Count != 0)
             {
-                foreach (Magazine magazine in magazines)
+                foreach (Magazine magazine in Magazines)
                 {
-                    Console.WriteLine($"\n\t\t[{magazines.IndexOf(magazine) + 1}]-----Title: \"{magazine.Title}\" \n\t\t\tIssue: {magazine.Issue} \n\t\t\tStatus: {magazine.Status}");
+                    Console.WriteLine($"\n\t\t[{Magazines.IndexOf(magazine) + 1}]-----Title: \"{magazine.Title}\" \n\t\t\tIssue: {magazine.Issue} \n\t\t\tStatus: {magazine.Status}");
                 }
             }
             else
@@ -128,7 +132,7 @@ namespace LibraryProject
             Console.WriteLine("\n\n\t\t--Choose-a-[#]-to-borrow--\n\t\t------------or------------\n\t\t-------LEAVE--[ESC]-------\n");
             try
             {
-                DisplayBooks(this.Books);
+                DisplayMediaOptions();
             }
             catch (Exception e)
             {
@@ -341,7 +345,41 @@ namespace LibraryProject
             }
         }
 
-        public void DisplayMediaOptions()
+        public void DisplayAllMedia()
+        {
+            for (int i = 0; i < Medias.Count; i++)
+            {
+
+            }
+            if (Books.Count != 0)
+            {
+                foreach (Book book in Medias)
+                {
+                    Console.WriteLine($"\n\t\t[{Medias.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
+                }
+
+
+            }
+            if (Magazines.Count != 0)
+            {
+                foreach (Magazine magazine in Medias)
+                {
+                    Console.WriteLine($"\n\t\t[{Medias.IndexOf(magazine) + 1}]-----Title: \"{magazine.Title}\" \n\t\t\tIssue: {magazine.Issue} \n\t\t\tStatus: {magazine.Status}");
+                }
+            }
+            if (CDs.Count != 0)
+            {
+                foreach (MusicCD music in Medias)
+                {
+                    Console.WriteLine($"\n\t\t[{Medias.IndexOf(music) + 1}]-----Album: \"{music.Album}\" \n\t\t\tArtist: {music.Artist} \n\t\t\tStatus: {music.Status}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
+            }
+        }
+            public void DisplayMediaOptions()
         {
             Console.WriteLine("\n\n\t\tWhich format would you like to browse?");
             Console.WriteLine("\n\t\t\t[1] Books");
@@ -366,7 +404,7 @@ namespace LibraryProject
                 {
                     Console.Clear();
                     Console.WriteLine("\t\t========MAGAZINES========");
-                    DisplayMagazines(Magazines);
+                    DisplayMagazines();
                     Console.ReadKey();
                     Console.Clear();
                     DisplayMediaOptions();
@@ -384,12 +422,10 @@ namespace LibraryProject
                 {
                     Console.Clear();
                     Console.WriteLine("\t\t===========ALL===========");
-                    DisplayBooks(Books);
-                    DisplayMagazines(Magazines);
-                    DisplayMusic(CDs);
+                    DisplayAllMedia();
                     Console.ReadKey();
                     Console.Clear();
-                    DisplayMediaOptions();
+
                 }
                 else
                 {
