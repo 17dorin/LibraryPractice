@@ -79,14 +79,22 @@ namespace LibraryProject
             string search = input.Trim().ToLower();
             int index = 1;
 
-            foreach(Media piece in Medias)
+            if(!String.IsNullOrEmpty(search) && !String.IsNullOrWhiteSpace(search))
             {
-                if(piece.ToString().ToLower().Contains(search))
+                foreach (Media piece in Medias)
                 {
-                    Console.WriteLine($"[{index}] {piece.ToString()}");
-                    index++;
+                    if (piece.ToString().ToLower().Contains(search))
+                    {
+                        Console.WriteLine($"[{index}] {piece.ToString()}");
+                        index++;
+                    }
                 }
             }
+            else
+            {
+                Console.WriteLine("Search string cannot be blank");
+            }
+
         }
 
         //Finds books based on Author property with a given string, can find partial matches
