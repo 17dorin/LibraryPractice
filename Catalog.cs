@@ -12,6 +12,9 @@ namespace LibraryProject
         public List<MusicCD> CDs { get; set; }
         public List<Magazine> Magazines { get; set; }
 
+        public List<Media> Medias { get; set; }
+
+
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
         {
@@ -23,12 +26,41 @@ namespace LibraryProject
         //Displays all books/other media with index and related info
         public void DisplayBooks(List<Book> books)
         {
-
             if(books.Count != 0)
             {
                 foreach (Book book in books)
                 {
                     Console.WriteLine($"\n\t\t[{books.IndexOf(book) + 1}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
+            }
+
+        }
+        public void DisplayMagazines(List<Magazine> magazines)
+        {
+            if (magazines.Count != 0)
+            {
+                foreach (Magazine magazine in magazines)
+                {
+                    Console.WriteLine($"\n\t\t[{magazines.IndexOf(magazine) + 1}]-----Title: \"{magazine.Title}\" \n\t\t\tIssue: {magazine.Issue} \n\t\t\tStatus: {magazine.Status}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
+            }
+
+        }
+        public void DisplayMusic(List<MusicCD> musics)
+        {
+            if (musics.Count != 0)
+            {
+                foreach (MusicCD music in musics)
+                {
+                    Console.WriteLine($"\n\t\t[{musics.IndexOf(music) + 1}]-----Album: \"{music.Album}\" \n\t\t\tArtist: {music.Artist} \n\t\t\tStatus: {music.Status}");
                 }
             }
             else
@@ -308,5 +340,65 @@ namespace LibraryProject
                 Console.WriteLine("Please enter a valid option");
             }
         }
+
+        public void DisplayMediaOptions()
+        {
+            Console.WriteLine("\n\n\t\tWhich format would you like to browse?");
+            Console.WriteLine("\n\t\t\t[1] Books");
+            Console.WriteLine("\n\t\t\t[2] Magazines");
+            Console.WriteLine("\n\t\t\t[3] Music");
+            Console.WriteLine("\n\t\t\t[4] Browse All");
+
+            ConsoleKeyInfo keyInput = Console.ReadKey();
+
+
+
+                if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\t\t==========BOOKS==========");
+                    DisplayBooks(Books);
+                    Console.ReadKey();
+                    Console.Clear();
+                    DisplayMediaOptions();
+                }
+                else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\t\t========MAGAZINES========");
+                    DisplayMagazines(Magazines);
+                    Console.ReadKey();
+                    Console.Clear();
+                    DisplayMediaOptions();
+                }
+                else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\t\t==========MUSIC==========");
+                    DisplayMusic(CDs);
+                    Console.ReadKey();
+                    Console.Clear();
+                    DisplayMediaOptions();
+                }
+                else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
+                {
+                    Console.Clear();
+                    Console.WriteLine("\t\t===========ALL===========");
+                    DisplayBooks(Books);
+                    DisplayMagazines(Magazines);
+                    DisplayMusic(CDs);
+                    Console.ReadKey();
+                    Console.Clear();
+                    DisplayMediaOptions();
+                }
+                else
+                {
+                    Console.Clear();
+                    DisplayMediaOptions();
+                }
+            
+        }
+
+
     }
 }
