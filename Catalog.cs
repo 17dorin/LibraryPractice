@@ -322,15 +322,15 @@ namespace LibraryProject
         //Returns a checked out book
         public void ReturnBook()
         {
-            List<Book> outBooks = new List<Book>();
-            Console.WriteLine("\n\n\t\tWhich book do you want to return?");
+            List<Media> outMedia = new List<Media>();
+            Console.WriteLine("\n\n\t\tWhat do you want to return?");
 
             //Adds books in our catalog that are currently out to a different list
-            foreach(Book book in Books)
+            foreach(Media piece in Medias)
             {
-                if(book.Status == RentalStatus.Out)
+                if(piece.Status == RentalStatus.Out)
                 {
-                    outBooks.Add(book);
+                    outMedia.Add(piece);
                 }
             }
 
@@ -338,6 +338,10 @@ namespace LibraryProject
             try
             {
                 //Add logic to print all out books
+                foreach(Media piece in outMedia)
+                {
+                    Console.WriteLine($"[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+                }
             }
             catch (Exception e)
             {
@@ -360,24 +364,24 @@ namespace LibraryProject
             Console.Clear();
             
             //Checks to make sure input is within bounds
-            if(option - 1 >= 0 && option - 1 < outBooks.Count)
+            if(option - 1 >= 0 && option - 1 < outMedia.Count)
             {
-                foreach (Book book in outBooks)
+                foreach (Media piece in outMedia)
                 {
                     //Matches selectes book with the correct book in the list
-                    if(option - 1 == outBooks.IndexOf(book))
+                    if(option - 1 == outMedia.IndexOf(piece))
                     {
                         Console.WriteLine("\n\nDo you want to return this item? Y/N");
-                        Console.WriteLine($"{book.Title}");
+                        Console.WriteLine($" [{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
 
                         if(Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
                             //Checks to see if book is overdue
-                            if(book.DueDate <= DateTime.Now)
+                            if(piece.DueDate <= DateTime.Now)
                             {
                                 Console.WriteLine("\n\n\t\tThis item is past due! \n\n\t\tOpen your wallet, miscreant.");
                             }
-                            book.Return();
+                            piece.Return();
                             Console.Clear();
 
                             Console.WriteLine("\n\n\t\tItem returned to inventory");
