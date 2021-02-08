@@ -436,6 +436,23 @@ namespace LibraryProject
 
                     break;
                 }
+                else if (keyInput.Key == ConsoleKey.D0 || keyInput.Key == ConsoleKey.NumPad0)
+                {
+                    Console.Clear();
+                    Console.Write("\n\n\t\t\t...What is your name?: ");
+                    string name = Console.ReadLine();
+                    if (name.ToLower().Contains("julius") || name.ToLower().Contains("cesar"))
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\n\n\t\t\tThe senators will meet you at the exit\n\n\n\n");
+                        break;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+
+                }
                 else
                 {
                     Console.Clear();
