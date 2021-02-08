@@ -153,8 +153,10 @@ namespace LibraryProject
             }
         }
 
+        //Grabs a piece of media from a list, changes its rental status and due date
         public void ReserveMedia(List<Media> media)
         {
+            //gets the index of the book you want to checkout, starting at 1 and changed to 0 indexed later
             int option = -1;
             try
             {
@@ -168,6 +170,7 @@ namespace LibraryProject
 
             Console.Clear();
 
+            //Checks to see 
             if (option - 1 >= 0 && option - 1 < media.Count)
             {
                 foreach (Media piece in media)
@@ -183,7 +186,6 @@ namespace LibraryProject
                                 piece.CheckOut();
                                 Console.Clear();
                                 Console.WriteLine($"\n\n\t\tYou have checked out: {piece} ");
-
 
                             }
                         }
@@ -205,7 +207,7 @@ namespace LibraryProject
             List<Media> outMedia = new List<Media>();
             Console.WriteLine("\n\n\t\tWhat do you want to return?");
 
-            //Adds books in our catalog that are currently out to a different list
+            //Adds media in our catalog that are currently out to a different list
             foreach (Media piece in Medias)
             {
                 if (piece.Status == RentalStatus.Out)
@@ -214,10 +216,10 @@ namespace LibraryProject
                 }
             }
 
-            //Tries to print list of out books, throws and handles exception if list is empty
+            //Tries to print list of out media, throws and handles exception if list is empty
             try
             {
-                //Add logic to print all out books
+                //Add logic to print all out media
                 foreach (Media piece in outMedia)
                 {
                     Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
@@ -248,7 +250,7 @@ namespace LibraryProject
             {
                 foreach (Media piece in outMedia)
                 {
-                    //Matches selectes book with the correct book in the list
+                    //Matches selected media with the correct media in the list
                     if (option - 1 == outMedia.IndexOf(piece))
                     {
                         Console.WriteLine("\n\nDo you want to return this item? Y/N");
@@ -256,7 +258,7 @@ namespace LibraryProject
 
                         if (Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
-                            //Checks to see if book is overdue
+                            //Checks to see if media is overdue
                             if (piece.DueDate <= DateTime.Now)
                             {
                                 Console.WriteLine("\n\n\t\tThis item is past due! \n\n\t\tOpen your wallet, miscreant.");
@@ -359,7 +361,7 @@ namespace LibraryProject
                     Console.WriteLine("\n\n\t\t\t========================");
                     Console.WriteLine("\t\t\t=========Search=========\n");
                     DisplaySearchOptions();
-                    Console.ReadKey();
+                    //Console.ReadKey();
 
 
                 }
@@ -368,7 +370,7 @@ namespace LibraryProject
                     Console.Clear();
                     Console.WriteLine("\t\t\t==========BORROWED=ITEMS==========");
                     ReturnBook();
-                    Console.ReadKey();
+                    //Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {
@@ -507,7 +509,7 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\t\t\t========================");
                 Console.WriteLine("\t\t\t=========Search=========\n");
                 DisplayBookSearchOptions();
-                //Console.ReadKey();
+                Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
             {
@@ -517,7 +519,7 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Magazines: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchMagazines(input);
-                //Console.ReadKey();
+                Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
             {
@@ -527,7 +529,7 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Music: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchMusic(input);
-                //Console.ReadKey();
+                Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
             {
