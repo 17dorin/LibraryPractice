@@ -264,11 +264,19 @@ namespace LibraryProject
             //Tries to print list of out media, throws and handles exception if list is empty
             try
             {
-                //Add logic to print all out media
-                foreach (Media piece in outMedia)
+                if(outMedia.Count == 0)
                 {
-                    Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
+                    throw new Exception("\n\n\t\tThere are no items to return");
                 }
+                else
+                {
+                    //Add logic to print all out media
+                    foreach (Media piece in outMedia)
+                    {
+                        Console.WriteLine($"\n\t\t[{outMedia.IndexOf(piece) + 1}]-----{piece.PrintSearchInfo()}, Due at {piece.DueDate}");
+                    }
+                }
+
             }
             catch (Exception e)
             {
@@ -299,7 +307,7 @@ namespace LibraryProject
                     if (option - 1 == outMedia.IndexOf(piece))
                     {
                         Console.WriteLine("\n\nDo you want to return this item? Y/N");
-                        Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
+                        Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
 
                         if (Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
@@ -311,8 +319,8 @@ namespace LibraryProject
                             }
                             piece.Return();
                             Console.Clear();
-
                             Console.WriteLine("\n\n\t\tItem returned to inventory");
+                            Console.ReadKey();
                         }
                     }
                 }
