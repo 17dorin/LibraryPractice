@@ -11,7 +11,9 @@ namespace LibraryProject
         public List<Book> Books { get; set; }
         public List<MusicCD> CDs { get; set; }
         public List<Magazine> Magazines { get; set; }
+
         public List<Media> Medias { get; set; }
+
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
@@ -53,7 +55,7 @@ namespace LibraryProject
                 {
                     if (piece.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintSearchInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -84,7 +86,7 @@ namespace LibraryProject
                 {
                     if (cd.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintSearchInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -115,7 +117,7 @@ namespace LibraryProject
                 {
                     if (mag.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintSearchInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -146,7 +148,7 @@ namespace LibraryProject
                 {
                     if (b.Title.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintSearchInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
                         index++;
                         foundMedia = true;
                     }
@@ -177,7 +179,7 @@ namespace LibraryProject
                 {
                     if (b.Author.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintSearchInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
                         index++;
                         foundMedia = true;
                     }
@@ -199,8 +201,6 @@ namespace LibraryProject
         //Grabs a piece of media from a list, changes its rental status and due date
         public void ReserveMedia(List<Media> media)
         {
-            Console.Write("\n\t\t\tTo checkout an item, enter the associated number: ");
-
             //gets the index of the book you want to checkout, starting at 1 and changed to 0 indexed later
             int option = -1;
             try
@@ -225,12 +225,12 @@ namespace LibraryProject
                         if (piece.Status == RentalStatus.In)
                         {
                             Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
-                            Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
+                            Console.WriteLine($"\n\n\t\t{piece}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
                                 piece.CheckOut();
                                 Console.Clear();
-                                Console.WriteLine(piece.PrintCheckOutInfo());
+                                Console.WriteLine($"\n\n\t\tYou have checked out: {piece} ");
 
                             }
                         }
@@ -240,9 +240,6 @@ namespace LibraryProject
                         }
                     }
                 }
-
-                AnyKeyToMainMenuPrompt();
-
             }
             else
             {
@@ -267,19 +264,11 @@ namespace LibraryProject
             //Tries to print list of out media, throws and handles exception if list is empty
             try
             {
-                if(outMedia.Count == 0)
+                //Add logic to print all out media
+                foreach (Media piece in outMedia)
                 {
-                    throw new Exception("\n\n\t\tThere are no items to return");
+                    Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
                 }
-                else
-                {
-                    //Add logic to print all out media
-                    foreach (Media piece in outMedia)
-                    {
-                        Console.WriteLine($"\n\t\t[{outMedia.IndexOf(piece) + 1}]-----{piece.PrintSearchInfo()}, Due at {piece.DueDate}");
-                    }
-                }
-
             }
             catch (Exception e)
             {
@@ -309,8 +298,8 @@ namespace LibraryProject
                     //Matches selected media with the correct media in the list
                     if (option - 1 == outMedia.IndexOf(piece))
                     {
-                        Console.WriteLine("\n\n\t\tDo you want to return this item? Y/N");
-                        Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
+                        Console.WriteLine("\n\nDo you want to return this item? Y/N");
+                        Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
 
                         if (Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
@@ -322,8 +311,8 @@ namespace LibraryProject
                             }
                             piece.Return();
                             Console.Clear();
+
                             Console.WriteLine("\n\n\t\tItem returned to inventory");
-                            Console.ReadKey();
                         }
                     }
                 }
@@ -394,7 +383,7 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\n\t\t\t=====EIDMAR=LIBRARY=====");
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
-                Console.WriteLine("\t\t\t[1] Browse our collection");
+                Console.WriteLine("\t\t\t[1] Our collection");
                 Console.WriteLine("\t\t\t[2] Search our collection");
                 Console.WriteLine("\t\t\t[3] Give it back");
                 Console.WriteLine("\t\t\t[4] Let me out");
@@ -515,6 +504,7 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========BOOKS==========");
                     DisplayBooks();
                     ReserveMedia(toDisplay);
+                    DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
@@ -524,6 +514,7 @@ namespace LibraryProject
                     Console.WriteLine("\t\t========MAGAZINES========");
                     DisplayMagazines();
                     ReserveMedia(toDisplay);
+                    DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
@@ -533,6 +524,7 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========MUSIC==========");
                     DisplayMusic();
                     ReserveMedia(toDisplay);
+                    DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {                  
@@ -540,6 +532,8 @@ namespace LibraryProject
                     Console.WriteLine("\t\t===========ALL===========");
                     DisplayAllMedia();
                     ReserveMedia(Medias);
+                    DisplayMediaOptions();
+
                 }
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
