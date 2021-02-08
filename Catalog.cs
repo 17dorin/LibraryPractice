@@ -70,6 +70,8 @@ namespace LibraryProject
             {
                 Console.WriteLine("Search string cannot be blank");
             }
+
+            AnyKeyToMainMenuPrompt();
         }
 
         public void SearchMusic(string input)
@@ -99,6 +101,8 @@ namespace LibraryProject
             {
                 Console.WriteLine("Search string cannot be blank");
             }
+
+            AnyKeyToMainMenuPrompt();
         }
 
         public void SearchMagazines(string input)
@@ -128,6 +132,8 @@ namespace LibraryProject
             {
                 Console.WriteLine("Search string cannot be blank");
             }
+
+            AnyKeyToMainMenuPrompt();
         }
 
         public void SearchBookByTitle(string input)
@@ -157,6 +163,8 @@ namespace LibraryProject
             {
                 Console.WriteLine("Search string cannot be blank");
             }
+
+            AnyKeyToMainMenuPrompt();
         }
 
         public void SearchBookByAuthor(string input)
@@ -186,6 +194,8 @@ namespace LibraryProject
             {
                 Console.WriteLine("Search string cannot be blank");
             }
+
+            AnyKeyToMainMenuPrompt();
         }
 
         //Grabs a piece of media from a list, changes its rental status and due date
@@ -388,7 +398,6 @@ namespace LibraryProject
                     Console.Clear();
                     Console.WriteLine("\t\t==========OUR=COLLECTION==========");
                     DisplayMediaOptions();
-                    //Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
@@ -396,9 +405,6 @@ namespace LibraryProject
                     Console.WriteLine("\n\n\t\t\t========================");
                     Console.WriteLine("\t\t\t=========Search=========\n");
                     DisplaySearchOptions();
-                    //Console.ReadKey();
-
-
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
@@ -481,8 +487,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========BOOKS==========");
                     DisplayBooks();
                     ReserveMedia(toDisplay);
-                    //Console.ReadKey();
-                    //Console.Clear();
                     DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
@@ -493,8 +497,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t========MAGAZINES========");
                     DisplayMagazines();
                     ReserveMedia(toDisplay);
-                    //Console.ReadKey();
-                    //Console.Clear();
                     DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
@@ -505,8 +507,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========MUSIC==========");
                     DisplayMusic();
                     ReserveMedia(toDisplay);
-                    //Console.ReadKey();
-                    //Console.Clear();
                     DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
@@ -515,8 +515,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t===========ALL===========");
                     DisplayAllMedia();
                     ReserveMedia(Medias);
-                    //Console.ReadKey();
-                    //Console.Clear();
                     DisplayMediaOptions();
 
                 }
@@ -544,7 +542,6 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\t\t\t========================");
                 Console.WriteLine("\t\t\t=========Search=========\n");
                 DisplayBookSearchOptions();
-                Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
             {
@@ -554,7 +551,6 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Magazines: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchMagazines(input);
-                Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
             {
@@ -564,7 +560,6 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Music: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchMusic(input);
-                Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
             {
@@ -590,7 +585,6 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Books by Author: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchBookByAuthor(input);
-                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
             {
@@ -600,7 +594,6 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Books by Title: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchBookByTitle(input);
-                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
             {
@@ -608,6 +601,13 @@ namespace LibraryProject
             }
 
         }
+
+        private static void AnyKeyToMainMenuPrompt()
+        {
+            Console.WriteLine("\n\t\t\tPress any key to return to the main menu");
+            Console.ReadKey();
+        }
+
         #endregion
 
     }
