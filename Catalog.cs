@@ -402,7 +402,7 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
-                    Console.WriteLine("Press enter to return to main menu");
+                    DisplayMenu();
 
                 }
             
