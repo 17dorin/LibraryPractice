@@ -55,7 +55,7 @@ namespace LibraryProject
                 {
                     if (piece.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintSearchInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -86,7 +86,7 @@ namespace LibraryProject
                 {
                     if (cd.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintSearchInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -117,7 +117,7 @@ namespace LibraryProject
                 {
                     if (mag.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintSearchInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -148,7 +148,7 @@ namespace LibraryProject
                 {
                     if (b.Title.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintSearchInfo()}");
                         index++;
                         foundMedia = true;
                     }
@@ -179,7 +179,7 @@ namespace LibraryProject
                 {
                     if (b.Author.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintSearchInfo()}");
                         index++;
                         foundMedia = true;
                     }
