@@ -477,7 +477,7 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
             }
         }
-            public void DisplayMediaOptions()
+        public void DisplayMediaOptions()
             {
             List<Media> toDisplay;
                
