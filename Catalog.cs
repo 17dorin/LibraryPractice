@@ -11,9 +11,7 @@ namespace LibraryProject
         public List<Book> Books { get; set; }
         public List<MusicCD> CDs { get; set; }
         public List<Magazine> Magazines { get; set; }
-
         public List<Media> Medias { get; set; }
-
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
@@ -63,7 +61,7 @@ namespace LibraryProject
 
                 if (!foundMedia)
                 {
-                    Console.WriteLine("\n\t\tNo results were found for your search");
+                    Console.WriteLine("\n\t\t\tNo results were found for your search");
                 }
             }
             else
@@ -185,7 +183,7 @@ namespace LibraryProject
                     }
                 }
 
-                if(!foundMedia)
+                if (!foundMedia)
                 {
                     Console.WriteLine("\n\t\tNo results were found for your search");
                 }
@@ -201,6 +199,8 @@ namespace LibraryProject
         //Grabs a piece of media from a list, changes its rental status and due date
         public void ReserveMedia(List<Media> media)
         {
+            Console.Write("\n\t\t\tTo checkout an item, enter the associated number: ");
+
             //gets the index of the book you want to checkout, starting at 1 and changed to 0 indexed later
             int option = -1;
             try
@@ -225,12 +225,12 @@ namespace LibraryProject
                         if (piece.Status == RentalStatus.In)
                         {
                             Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
-                            Console.WriteLine($"\n\n\t\t{piece}");
+                            Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
                                 piece.CheckOut();
                                 Console.Clear();
-                                Console.WriteLine($"\n\n\t\tYou have checked out: {piece} ");
+                                Console.WriteLine(piece.PrintCheckOutInfo());
 
                             }
                         }
@@ -240,6 +240,9 @@ namespace LibraryProject
                         }
                     }
                 }
+
+                AnyKeyToMainMenuPrompt();
+
             }
             else
             {
@@ -264,11 +267,19 @@ namespace LibraryProject
             //Tries to print list of out media, throws and handles exception if list is empty
             try
             {
-                //Add logic to print all out media
-                foreach (Media piece in outMedia)
+                if (outMedia.Count == 0)
                 {
-                    Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+                    throw new Exception("\n\n\t\tThere are no items to return");
                 }
+                else
+                {
+                    //Add logic to print all out media
+                    foreach (Media piece in outMedia)
+                    {
+                        Console.WriteLine($"\n\t\t[{outMedia.IndexOf(piece) + 1}]-----{piece.PrintSearchInfo()}, Due at {piece.DueDate}");
+                    }
+                }
+
             }
             catch (Exception e)
             {
@@ -298,8 +309,8 @@ namespace LibraryProject
                     //Matches selected media with the correct media in the list
                     if (option - 1 == outMedia.IndexOf(piece))
                     {
-                        Console.WriteLine("\n\nDo you want to return this item? Y/N");
-                        Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
+                        Console.WriteLine("\n\n\t\tDo you want to return this item? Y/N");
+                        Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
 
                         if (Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
@@ -311,8 +322,8 @@ namespace LibraryProject
                             }
                             piece.Return();
                             Console.Clear();
-
                             Console.WriteLine("\n\n\t\tItem returned to inventory");
+                            Console.ReadKey();
                         }
                     }
                 }
@@ -330,7 +341,7 @@ namespace LibraryProject
         //Displays all books/other media with index and related info
         public void DisplayBooks()
         {
-            if(Books.Count != 0)
+            if (Books.Count != 0)
             {
                 foreach (Book book in Books)
                 {
@@ -383,7 +394,7 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\n\t\t\t=====EIDMAR=LIBRARY=====");
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
-                Console.WriteLine("\t\t\t[1] Our collection");
+                Console.WriteLine("\t\t\t[1] Browse our collection");
                 Console.WriteLine("\t\t\t[2] Search our collection");
                 Console.WriteLine("\t\t\t[3] Give it back");
                 Console.WriteLine("\t\t\t[4] Let me out");
@@ -424,23 +435,6 @@ namespace LibraryProject
                     CatalogToDisk.SaveMagazinesStateToDisk(this);
 
                     break;
-                }
-                else if (keyInput.Key == ConsoleKey.D0 || keyInput.Key == ConsoleKey.NumPad0)
-                {
-                    Console.Clear();
-                    Console.Write("\n\n\t\t\t...What is your name?: ");
-                    string name = Console.ReadLine();
-                    if (name.ToLower().Contains("julius") || name.ToLower().Contains("cesar"))
-                    {
-                        Console.Clear();
-                        Console.WriteLine("\n\n\t\t\tThe senators will meet you at the exit\n\n\n\n");
-                        break;
-                    }
-                    else
-                    {
-                        continue;
-                    }
-
                 }
                 else
                 {
@@ -484,64 +478,59 @@ namespace LibraryProject
             }
         }
         public void DisplayMediaOptions()
-            {
+        {
             List<Media> toDisplay;
-               
-                Console.WriteLine("\n\t\tWhich format would you like to browse?");
-                Console.WriteLine("\n\t\t\t[1] Books");
-                Console.WriteLine("\n\t\t\t[2] Magazines");
-                Console.WriteLine("\n\t\t\t[3] Music");
-                Console.WriteLine("\n\t\t\t[4] Browse All");
-                Console.WriteLine("\n\t\t\t[5] Return to main menu");
 
-                ConsoleKeyInfo keyInput = Console.ReadKey();
+            Console.WriteLine("\n\t\tWhich format would you like to browse?");
+            Console.WriteLine("\n\t\t\t[1] Books");
+            Console.WriteLine("\n\t\t\t[2] Magazines");
+            Console.WriteLine("\n\t\t\t[3] Music");
+            Console.WriteLine("\n\t\t\t[4] Browse All");
+            Console.WriteLine("\n\t\t\t[5] Return to main menu");
 
-                if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
-                {
-                    toDisplay = Books.Cast<Media>().ToList();    
+            ConsoleKeyInfo keyInput = Console.ReadKey();
 
-                    Console.Clear();
-                    Console.WriteLine("\t\t==========BOOKS==========");
-                    DisplayBooks();
-                    ReserveMedia(toDisplay);
-                    DisplayMediaOptions();
-                }
-                else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
-                {
-                    toDisplay = Magazines.Cast<Media>().ToList();
+            if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
+            {
+                toDisplay = Books.Cast<Media>().ToList();
 
-                    Console.Clear();
-                    Console.WriteLine("\t\t========MAGAZINES========");
-                    DisplayMagazines();
-                    ReserveMedia(toDisplay);
-                    DisplayMediaOptions();
-                }
-                else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
-                {
-                    toDisplay = CDs.Cast<Media>().ToList();
-
-                    Console.Clear();
-                    Console.WriteLine("\t\t==========MUSIC==========");
-                    DisplayMusic();
-                    ReserveMedia(toDisplay);
-                    DisplayMediaOptions();
-                }
-                else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
-                {                  
-                    Console.Clear();
-                    Console.WriteLine("\t\t===========ALL===========");
-                    DisplayAllMedia();
-                    ReserveMedia(Medias);
-                    DisplayMediaOptions();
-
-                }
-                else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
-                {
-                    Console.Clear();
-                    return;
-                }
-            
+                Console.Clear();
+                Console.WriteLine("\t\t==========BOOKS==========");
+                DisplayBooks();
+                ReserveMedia(toDisplay);
             }
+            else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
+            {
+                toDisplay = Magazines.Cast<Media>().ToList();
+
+                Console.Clear();
+                Console.WriteLine("\t\t========MAGAZINES========");
+                DisplayMagazines();
+                ReserveMedia(toDisplay);
+            }
+            else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
+            {
+                toDisplay = CDs.Cast<Media>().ToList();
+
+                Console.Clear();
+                Console.WriteLine("\t\t==========MUSIC==========");
+                DisplayMusic();
+                ReserveMedia(toDisplay);
+            }
+            else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
+            {
+                Console.Clear();
+                Console.WriteLine("\t\t===========ALL===========");
+                DisplayAllMedia();
+                ReserveMedia(Medias);
+            }
+            else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
+            {
+                Console.Clear();
+                return;
+            }
+
+        }
 
         public void DisplaySearchOptions()
         {
