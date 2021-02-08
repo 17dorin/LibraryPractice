@@ -18,7 +18,9 @@ namespace LibraryProject
         }
         public abstract void CheckOut();
 
-        public abstract string PrintInfo();
+        public abstract string PrintSearchInfo();
+
+        public abstract string PrintCheckOutInfo();
 
         public void Return()
         {

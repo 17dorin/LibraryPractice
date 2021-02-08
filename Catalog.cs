@@ -53,7 +53,7 @@ namespace LibraryProject
                 {
                     if (piece.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintSearchInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -84,7 +84,7 @@ namespace LibraryProject
                 {
                     if (cd.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintSearchInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -115,7 +115,7 @@ namespace LibraryProject
                 {
                     if (mag.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintSearchInfo()}");
                         foundMedia = true;
                         index++;
                     }
@@ -146,7 +146,7 @@ namespace LibraryProject
                 {
                     if (b.Title.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintSearchInfo()}");
                         index++;
                         foundMedia = true;
                     }
@@ -177,7 +177,7 @@ namespace LibraryProject
                 {
                     if (b.Author.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintSearchInfo()}");
                         index++;
                         foundMedia = true;
                     }
@@ -225,12 +225,12 @@ namespace LibraryProject
                         if (piece.Status == RentalStatus.In)
                         {
                             Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
-                            Console.WriteLine($"\n\n\t\t{piece}");
+                            Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
                                 piece.CheckOut();
                                 Console.Clear();
-                                Console.WriteLine($"\n\n\t\tYou have checked out: {piece} ");
+                                Console.WriteLine(piece.PrintCheckOutInfo());
 
                             }
                         }
@@ -267,7 +267,7 @@ namespace LibraryProject
                 //Add logic to print all out media
                 foreach (Media piece in outMedia)
                 {
-                    Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+                    Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
                 }
             }
             catch (Exception e)

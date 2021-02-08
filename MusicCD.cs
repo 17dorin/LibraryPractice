@@ -43,9 +43,14 @@ namespace LibraryProject
             return $"{Artist}, {Album}, {Status}, {DueDate}";
         }
 
-        public override string PrintInfo()
+        public override string PrintSearchInfo()
         {
             return $"Artist: \"{Artist}\" \n\t\t\tAlbum: {Album} \n\t\t\tStatus: {Status}";
+        }
+
+        public override string PrintCheckOutInfo()
+        {
+            return $"\n\n\t\t\tYou checked out {Album}.\n\t\t\tIt's due by {DueDate}";
         }
     }
 }
