@@ -240,6 +240,9 @@ namespace LibraryProject
                         }
                     }
                 }
+
+                AnyKeyToMainMenuPrompt();
+
             }
             else
             {
@@ -306,7 +309,7 @@ namespace LibraryProject
                     //Matches selected media with the correct media in the list
                     if (option - 1 == outMedia.IndexOf(piece))
                     {
-                        Console.WriteLine("\n\nDo you want to return this item? Y/N");
+                        Console.WriteLine("\n\n\t\tDo you want to return this item? Y/N");
                         Console.WriteLine($"\n\n\t\t{piece.PrintSearchInfo()}");
 
                         if (Console.ReadKey(false).Key == ConsoleKey.Y)
@@ -495,7 +498,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========BOOKS==========");
                     DisplayBooks();
                     ReserveMedia(toDisplay);
-                    DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
@@ -505,7 +507,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t========MAGAZINES========");
                     DisplayMagazines();
                     ReserveMedia(toDisplay);
-                    DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
@@ -515,7 +516,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========MUSIC==========");
                     DisplayMusic();
                     ReserveMedia(toDisplay);
-                    DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {                  
@@ -523,8 +523,6 @@ namespace LibraryProject
                     Console.WriteLine("\t\t===========ALL===========");
                     DisplayAllMedia();
                     ReserveMedia(Medias);
-                    DisplayMediaOptions();
-
                 }
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
