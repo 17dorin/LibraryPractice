@@ -45,6 +45,7 @@ namespace LibraryProject
 
         public void SearchMedia(string input)
         {
+            bool foundMedia = false;
             string search = input.Trim().ToLower();
             int index = 1;
 
@@ -55,8 +56,14 @@ namespace LibraryProject
                     if (piece.ToString().ToLower().Contains(search))
                     {
                         Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintInfo()}");
+                        foundMedia = true;
                         index++;
                     }
+                }
+
+                if (!foundMedia)
+                {
+                    Console.WriteLine("\n\t\tNo results were found for your search");
                 }
             }
             else
@@ -67,6 +74,7 @@ namespace LibraryProject
 
         public void SearchMusic(string input)
         {
+            bool foundMedia = false;
             string search = input.Trim().ToLower();
             int index = 1;
 
@@ -77,8 +85,14 @@ namespace LibraryProject
                     if (cd.ToString().ToLower().Contains(search))
                     {
                         Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintInfo()}");
+                        foundMedia = true;
                         index++;
                     }
+                }
+
+                if (!foundMedia)
+                {
+                    Console.WriteLine("\n\t\tNo results were found for your search");
                 }
             }
             else
@@ -89,6 +103,7 @@ namespace LibraryProject
 
         public void SearchMagazines(string input)
         {
+            bool foundMedia = false;
             string search = input.Trim().ToLower();
             int index = 1;
 
@@ -99,8 +114,14 @@ namespace LibraryProject
                     if (mag.ToString().ToLower().Contains(search))
                     {
                         Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintInfo()}");
+                        foundMedia = true;
                         index++;
                     }
+                }
+
+                if (!foundMedia)
+                {
+                    Console.WriteLine("\n\t\tNo results were found for your search");
                 }
             }
             else
@@ -111,6 +132,7 @@ namespace LibraryProject
 
         public void SearchBookByTitle(string input)
         {
+            bool foundMedia = false;
             string search = input.Trim().ToLower();
             int index = 1;
 
@@ -122,7 +144,13 @@ namespace LibraryProject
                     {
                         Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
                         index++;
+                        foundMedia = true;
                     }
+                }
+
+                if (!foundMedia)
+                {
+                    Console.WriteLine("\n\t\tNo results were found for your search");
                 }
             }
             else
@@ -133,6 +161,7 @@ namespace LibraryProject
 
         public void SearchBookByAuthor(string input)
         {
+            bool foundMedia = false;
             string search = input.Trim().ToLower();
             int index = 1;
 
@@ -144,7 +173,13 @@ namespace LibraryProject
                     {
                         Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
                         index++;
+                        foundMedia = true;
                     }
+                }
+
+                if(!foundMedia)
+                {
+                    Console.WriteLine("\n\t\tNo results were found for your search");
                 }
             }
             else
