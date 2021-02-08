@@ -11,9 +11,7 @@ namespace LibraryProject
         public List<Book> Books { get; set; }
         public List<MusicCD> CDs { get; set; }
         public List<Magazine> Magazines { get; set; }
-
         public List<Media> Medias { get; set; }
-
 
         //All instances of books/other media are instantiated within the Catalog constructor
         public Catalog()
@@ -201,6 +199,8 @@ namespace LibraryProject
         //Grabs a piece of media from a list, changes its rental status and due date
         public void ReserveMedia(List<Media> media)
         {
+            Console.Write("\n\t\t\tTo checkout an item, enter the associated number: ");
+
             //gets the index of the book you want to checkout, starting at 1 and changed to 0 indexed later
             int option = -1;
             try
