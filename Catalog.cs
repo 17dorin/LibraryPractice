@@ -27,6 +27,171 @@ namespace LibraryProject
             Medias.AddRange(CDs);
         }
 
+        #region CATALOG FUNCTIONS
+
+        static int GetNumber()
+        {
+            int option;
+            string unparsed = Console.ReadLine();
+
+            if (!int.TryParse(unparsed, out option))
+            {
+                throw new Exception("\n\n\t\tInput must be a number of the given options");
+            }
+            Console.WriteLine("\n\n\t\tWhich [#] would you like to checkout?\n\t\tDouble-tap [ENTER] to return to collection menu");
+
+            return option;
+        }
+
+        public void SearchMedia(string input)
+        {
+            string search = input.Trim().ToLower();
+            int index = 1;
+
+            if (!String.IsNullOrEmpty(search) && !String.IsNullOrWhiteSpace(search))
+            {
+                foreach (Media piece in Medias)
+                {
+                    if (piece.ToString().ToLower().Contains(search))
+                    {
+                        Console.WriteLine($"[{index}] {piece.ToString()}");
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Search string cannot be blank");
+            }
+
+        }
+
+        public void ReserveMedia(List<Media> media)
+        {
+            int option = -1;
+            try
+            {
+                option = GetNumber();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+            Console.Clear();
+
+            if (option - 1 >= 0 && option - 1 < media.Count)
+            {
+                foreach (Media piece in media)
+                {
+                    if (option - 1 == media.IndexOf(piece))
+                    {
+                        if (piece.Status == RentalStatus.In)
+                        {
+                            Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
+                            if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                            {
+                                piece.CheckOut();
+                                Console.Clear();
+                                Console.WriteLine($"\n\n\t\tYou have checked out: {piece} ");
+
+
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine($"\n\n\t\tThat item is currently checked out until {piece.DueDate}");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\n\t\tPlease enter a valid option\n\n\t\tPress [ENTER] to return to main menu");
+            }
+        }
+
+        public void ReturnBook()
+        {
+            List<Media> outMedia = new List<Media>();
+            Console.WriteLine("\n\n\t\tWhat do you want to return?");
+
+            //Adds books in our catalog that are currently out to a different list
+            foreach (Media piece in Medias)
+            {
+                if (piece.Status == RentalStatus.Out)
+                {
+                    outMedia.Add(piece);
+                }
+            }
+
+            //Tries to print list of out books, throws and handles exception if list is empty
+            try
+            {
+                //Add logic to print all out books
+                foreach (Media piece in outMedia)
+                {
+                    Console.WriteLine($"[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+
+            //Gets user key press and converts to a number, intended to be 1 - the size of the list
+            int option = -1;
+            try
+            {
+                option = GetNumber();
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+
+
+            Console.Clear();
+
+            //Checks to make sure input is within bounds
+            if (option - 1 >= 0 && option - 1 < outMedia.Count)
+            {
+                foreach (Media piece in outMedia)
+                {
+                    //Matches selectes book with the correct book in the list
+                    if (option - 1 == outMedia.IndexOf(piece))
+                    {
+                        Console.WriteLine("\n\nDo you want to return this item? Y/N");
+                        Console.WriteLine($" [{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+
+                        if (Console.ReadKey(false).Key == ConsoleKey.Y)
+                        {
+                            //Checks to see if book is overdue
+                            if (piece.DueDate <= DateTime.Now)
+                            {
+                                Console.WriteLine("\n\n\t\tThis item is past due! \n\n\t\tOpen your wallet, miscreant.");
+
+                            }
+                            piece.Return();
+                            Console.Clear();
+
+                            Console.WriteLine("\n\n\t\tItem returned to inventory");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("\n\n\t\tYou didn't select anything from our collection... That's fine.\n\n\t\tPress[ENTER] to return to collection menu");
+            }
+        }
+
+        #endregion
+
+        #region CATALOG MENU
+
         //Displays all books/other media with index and related info
         public void DisplayBooks()
         {
@@ -41,7 +206,6 @@ namespace LibraryProject
             {
                 Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
             }
-            Console.WriteLine("\n\n\t\tWhich [#] would you like to checkout?\n\t\tDouble-tap [ENTER] to return to collection menu");
 
         }
         public void DisplayMagazines()
@@ -70,176 +234,9 @@ namespace LibraryProject
             }
             else
             {
-                Console.WriteLine("\n\n\n\t\t\tNo items in our collection match your query");
-            }
-
-        }
-
-        //Finds books based on Author property with a given string, can find partial matches
-        public List<Book> FindAuthor(string search)
-        {
-            List<Book> SearchedBooks = new List<Book>();
-
-            search = search.ToLower();
-
-            foreach(Book book in Books)
-            {
-                if(book.Author.ToLower().Contains(search))
-                {
-                    SearchedBooks.Add(book);
-                }
-            }
-
-            return SearchedBooks;
-
-        }
-
-        //Same as FindAuthor but with Title property
-        public List<Book> FindTitle(string search)
-        {
-
-            List<Book> SearchedBooks = new List<Book>();
-
-            search = search.ToLower();
-
-            foreach (Book book in Books)
-            {
-                if (book.Title.ToLower().Contains(search))
-                {
-                    SearchedBooks.Add(book);
-                }
-            }
-
-            return SearchedBooks;
-
-        }
-
-        public static int GetNumber()
-        {
-            int option;
-            string unparsed = Console.ReadLine();
-
-            if(!int.TryParse(unparsed, out option))
-            {
-                throw new Exception("\n\n\t\tInput must be a number of the given options");
-            }
-
-            return option;
-        }
-
-        public void ReserveMedia(List<Media> media)
-        {
-            int option = -1;
-            try
-            {
-                option = GetNumber();
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.Message);
-            }
-
-            Console.Clear();
-
-            if (option - 1 >= 0 && option - 1 < media.Count)
-            {
-                foreach(Media piece in media)
-                {
-                    if (option - 1 == media.IndexOf(piece))
-                    {
-                        if (piece.Status == RentalStatus.In)
-                        {
-                            Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
-                            Console.WriteLine($"\n\n\t\t\t{piece}");
-                            if (Console.ReadKey(false).Key == ConsoleKey.Y)
-                            {
-                                piece.CheckOut();
-                                Console.Clear();
-                                Console.WriteLine($"\n\n\t\tYou have checked out: \n\n\n\t\t\t{piece} ");
-
-
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"\n\n\t\tThat item is currently checked out until {piece.DueDate}");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("\n\n\t\tYou didn't select anything from our collection... That's fine.\n\n\t\tPress[ENTER] to return to collection menu");
-            }
-        }
-
-        //Checks out a book/other media
-        public void ReserveBook()
-        {
-            //Console.WriteLine("\n\n\t\t--Choose-a-[#]-to-borrow--\n\t\t------------or------------\n\t\t-------LEAVE--[ESC]-------\n");
-            try
-            {
-                DisplayMediaOptions();
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-
-            //Gets the pressed key from user and converts to a number, itended to be a number 1 - size of list
-            int option = -1;
-            try
-            {
-                option = GetNumber();
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.Message);
-            }
-
-
-
-            Console.Clear();
-
-            //Makes sure input is within bounds of the list
-            if (option - 1 >= 0 && option - 1 < Books.Count)
-            {
-                foreach (Book book in Books)
-                {
-                    //Matches input with correct book
-                    if (option - 1 == Books.IndexOf(book))
-                    {
-                        //Checks if selected book is currently out
-                        if (book.Status == RentalStatus.In)
-                        {
-                            Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
-                            Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}");
-                            if (Console.ReadKey(false).Key == ConsoleKey.Y)
-                            {
-                                book.CheckOut();
-                                Console.Clear();
-                                Console.WriteLine("\n\n\t\tYou have checked out: ");
-
-                                Console.WriteLine($"\n\t\t\tTitle: \"{book.Title}\" \n\t\t\tAuthor: {book.Author}\n\n\t\t\t\tDue: {book.DueDate}");
-
-
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine($"\n\n\t\tThat item is currently checked out until {book.DueDate}");
-                        }
-
-                    }
-                }
-            }
-            else
-            {
                 Console.WriteLine("\n\n\t\tPlease enter a valid option\n\n\t\tPress [ENTER] to return to main menu");
             }
+
         }
 
         public void DisplayMenu()
@@ -252,10 +249,9 @@ namespace LibraryProject
                 Console.WriteLine("\t\t\t/--x-/--x-/--x-/--x-/--x");
                 Console.WriteLine("\t\t\t====WHY=ARE=YOU=HERE====");
                 Console.WriteLine("\t\t\t[1] Our collection");
-                Console.WriteLine("\t\t\t[2] Who wrote it?");
-                Console.WriteLine("\t\t\t[3] What's it called?");
-                Console.WriteLine("\t\t\t[4] Give it back");
-                Console.WriteLine("\t\t\t[5] Let me out");
+                Console.WriteLine("\t\t\t[2] Search our collection");
+                Console.WriteLine("\t\t\t[3] Give it back");
+                Console.WriteLine("\t\t\t[4] Let me out");
                 Console.WriteLine("\t\t\t========================");
                 Console.WriteLine("\t\t\tx--/-x--/-x--/-x--/-x--/");
                 Console.WriteLine("\t\t\t========================");
@@ -273,10 +269,10 @@ namespace LibraryProject
                 {
                     Console.Clear();
                     Console.WriteLine("\n\n\t\t\t========================");
-                    Console.WriteLine("\t\t\t====Search=by=Author====\n");
-                    Console.Write("\n\t\t\tAuthor Name: ");
+                    Console.WriteLine("\t\t\t=========Search=========\n");
+                    Console.Write("\n\t\t\tSearch For: ");
                     string input = Console.ReadLine().ToLower().Trim();
-                    DisplayBooks();
+                    SearchMedia(input);
                     Console.ReadKey();
 
 
@@ -284,24 +280,11 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
                 {
                     Console.Clear();
-
-                    Console.WriteLine("\n\n\t\t\t=======================");
-                    Console.WriteLine("\t\t\t====Search=by=Title====\n");
-                    Console.Write("\n\t\t\tBook Title: ");
-
-                    string input = Console.ReadLine().ToLower().Trim();
-                    DisplayBooks();
-
-                    Console.ReadKey();
-                }
-                else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
-                {
-                    Console.Clear();
                     Console.WriteLine("\t\t\t==========BORROWED=ITEMS==========");
                     ReturnBook();
                     Console.ReadKey();
                 }
-                else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
+                else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
                 {
                     Console.Clear();
                     Console.WriteLine("\n\n\n\t\t\tLater.\n\n\n\n\n\n");
@@ -318,82 +301,6 @@ namespace LibraryProject
                     Console.Clear();
                     continue;
                 }
-            }
-        }
-
-        //Returns a checked out book
-        public void ReturnBook()
-        {
-            List<Media> outMedia = new List<Media>();
-            Console.WriteLine("\n\n\t\tWhat do you want to return?\n");
-
-            //Adds books in our catalog that are currently out to a different list
-            foreach(Media piece in Medias)
-            {
-                if(piece.Status == RentalStatus.Out)
-                {
-                    outMedia.Add(piece);
-                }
-            }
-
-            //Tries to print list of out books, throws and handles exception if list is empty
-            try
-            {
-                //Add logic to print all out books
-                foreach(Media piece in outMedia)
-                {
-                    Console.WriteLine($"\t\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-
-            //Gets user key press and converts to a number, intended to be 1 - the size of the list
-            int option = -1;
-            try
-            {
-                option = GetNumber();
-            }
-            catch (Exception e)
-            {
-
-                Console.WriteLine(e.Message);
-            }
-
-
-            Console.Clear();
-            
-            //Checks to make sure input is within bounds
-            if(option - 1 >= 0 && option - 1 < outMedia.Count)
-            {
-                foreach (Media piece in outMedia)
-                {
-                    //Matches selectes book with the correct book in the list
-                    if(option - 1 == outMedia.IndexOf(piece))
-                    {
-                        Console.WriteLine("\n\n\t\tDo you want to return this item? Y/N");
-                        Console.WriteLine($" \n\t\t\t{piece.ToString()}");
-
-                        if(Console.ReadKey(false).Key == ConsoleKey.Y)
-                        {
-                            //Checks to see if book is overdue
-                            if(piece.DueDate <= DateTime.Now)
-                            {
-                                Console.WriteLine("\n\n\t\tThis item is past due! \n\n\t\tOpen your wallet, miscreant.");
-                            }
-                            piece.Return();
-                            Console.Clear();
-
-                            Console.WriteLine("\n\n\t\tItem returned to inventory");
-                        }
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("\n\n3\t\tNo items returned\n\t\tPress [ENTER] to return to main menu");
             }
         }
 
@@ -495,14 +402,12 @@ namespace LibraryProject
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
-                    DisplayMenu();
-                    Console.ReadKey();
-                    Console.Clear();
+                    Console.WriteLine("Press enter to return to main menu");
 
                 }
             
             }
-
+        #endregion
 
     }
 }
