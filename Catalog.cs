@@ -68,7 +68,7 @@ namespace LibraryProject
             }
             else
             {
-                Console.WriteLine("Search string cannot be blank");
+                Console.WriteLine("\n\t\tSearch string cannot be blank");
             }
         }
 
