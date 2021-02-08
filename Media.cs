@@ -18,6 +18,8 @@ namespace LibraryProject
         }
         public abstract void CheckOut();
 
+        public abstract string PrintInfo();
+
         public void Return()
         {
             DueDate = DateTime.MaxValue;

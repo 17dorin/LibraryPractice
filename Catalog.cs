@@ -54,7 +54,7 @@ namespace LibraryProject
                 {
                     if (piece.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {piece.ToString()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {piece.PrintInfo()}");
                         index++;
                     }
                 }
@@ -76,7 +76,7 @@ namespace LibraryProject
                 {
                     if (cd.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {cd.ToString()}");
+                        Console.WriteLine($"\n\t\t\t[{index}]-----{cd.PrintInfo()}");
                         index++;
                     }
                 }
@@ -98,7 +98,7 @@ namespace LibraryProject
                 {
                     if (mag.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {mag.ToString()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {mag.PrintInfo()}");
                         index++;
                     }
                 }
@@ -120,7 +120,7 @@ namespace LibraryProject
                 {
                     if (b.Title.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.ToString()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
                         index++;
                     }
                 }
@@ -142,7 +142,7 @@ namespace LibraryProject
                 {
                     if (b.Author.ToLower().Contains(search))
                     {
-                        Console.WriteLine($"\n\t\t\t[{index}] {b.ToString()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.PrintInfo()}");
                         index++;
                     }
                 }

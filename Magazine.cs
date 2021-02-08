@@ -42,5 +42,10 @@ namespace LibraryProject
         {
             return $"{Title}, {Issue}, {Status}, {DueDate}";
         }
+
+        public override string PrintInfo()
+        {
+            return $"Title: \"{Title}\" \n\t\t\tIssue: {Issue} \n\t\t\tStatus: {Status}";
+        }
     }
 }

@@ -42,5 +42,10 @@ namespace LibraryProject
         {
             return $"{Artist}, {Album}, {Status}, {DueDate}";
         }
+
+        public override string PrintInfo()
+        {
+            return $"Artist: \"{Artist}\" \n\t\t\tAlbum: {Album} \n\t\t\tStatus: {Status}";
+        }
     }
 }
