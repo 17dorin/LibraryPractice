@@ -61,7 +61,7 @@ namespace LibraryProject
 
                 if (!foundMedia)
                 {
-                    Console.WriteLine("\n\t\tNo results were found for your search");
+                    Console.WriteLine("\n\t\t\tNo results were found for your search");
                 }
             }
             else
