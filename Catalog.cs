@@ -54,7 +54,7 @@ namespace LibraryProject
                 {
                     if (piece.ToString().ToLower().Contains(search))
                     {
-                        Console.WriteLine($"[{index}] {piece.ToString()}");
+                        Console.WriteLine($"\n\t\t\t[{index}] {piece.ToString()}");
                         index++;
                     }
                 }
@@ -63,7 +63,94 @@ namespace LibraryProject
             {
                 Console.WriteLine("Search string cannot be blank");
             }
+        }
 
+        public void SearchMusic(string input)
+        {
+            string search = input.Trim().ToLower();
+            int index = 1;
+
+            if (!String.IsNullOrEmpty(search) && !String.IsNullOrWhiteSpace(search))
+            {
+                foreach (MusicCD cd in Medias.OfType<MusicCD>())
+                {
+                    if (cd.ToString().ToLower().Contains(search))
+                    {
+                        Console.WriteLine($"\n\t\t\t[{index}] {cd.ToString()}");
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Search string cannot be blank");
+            }
+        }
+
+        public void SearchMagazines(string input)
+        {
+            string search = input.Trim().ToLower();
+            int index = 1;
+
+            if (!String.IsNullOrEmpty(search) && !String.IsNullOrWhiteSpace(search))
+            {
+                foreach (Magazine mag in Medias.OfType<Magazine>())
+                {
+                    if (mag.ToString().ToLower().Contains(search))
+                    {
+                        Console.WriteLine($"\n\t\t\t[{index}] {mag.ToString()}");
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Search string cannot be blank");
+            }
+        }
+
+        public void SearchBookByTitle(string input)
+        {
+            string search = input.Trim().ToLower();
+            int index = 1;
+
+            if (!String.IsNullOrEmpty(search) && !String.IsNullOrWhiteSpace(search))
+            {
+                foreach (Book b in Medias.OfType<Book>())
+                {
+                    if (b.Title.ToLower().Contains(search))
+                    {
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.ToString()}");
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Search string cannot be blank");
+            }
+        }
+
+        public void SearchBookByAuthor(string input)
+        {
+            string search = input.Trim().ToLower();
+            int index = 1;
+
+            if (!String.IsNullOrEmpty(search) && !String.IsNullOrWhiteSpace(search))
+            {
+                foreach (Book b in Medias.OfType<Book>())
+                {
+                    if (b.Author.ToLower().Contains(search))
+                    {
+                        Console.WriteLine($"\n\t\t\t[{index}] {b.ToString()}");
+                        index++;
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Search string cannot be blank");
+            }
         }
 
         public void ReserveMedia(List<Media> media)
@@ -270,9 +357,7 @@ namespace LibraryProject
                     Console.Clear();
                     Console.WriteLine("\n\n\t\t\t========================");
                     Console.WriteLine("\t\t\t=========Search=========\n");
-                    Console.Write("\n\t\t\tSearch For: ");
-                    string input = Console.ReadLine().ToLower().Trim();
-                    SearchMedia(input);
+                    DisplaySearchOptions();
                     Console.ReadKey();
 
 
@@ -315,8 +400,6 @@ namespace LibraryProject
                     Console.WriteLine($"\n\t\t[{i}]-----Title: \"{book.Title}\" \n\t\t\tAuthor: {book.Author} \n\t\t\tStatus: {book.Status}");
                     i++;
                 }
-
-
             }
             if (Magazines.Count != 0)
             {
@@ -405,6 +488,87 @@ namespace LibraryProject
                 }
             
             }
+
+        public void DisplaySearchOptions()
+        {
+            Console.WriteLine("\n\t\tWhat are you searching for?");
+            Console.WriteLine("\n\t\t\t[1] Books");
+            Console.WriteLine("\n\t\t\t[2] Magazines");
+            Console.WriteLine("\n\t\t\t[3] Music");
+            Console.WriteLine("\n\t\t\t[4] Return to main menu");
+
+            ConsoleKeyInfo keyInput = Console.ReadKey();
+
+            if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n\t\t\t========================");
+                Console.WriteLine("\t\t\t=========Search=========\n");
+                DisplayBookSearchOptions();
+                Console.ReadKey();
+            }
+            else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n\t\t\t========================");
+                Console.WriteLine("\t\t\t=========Search=========\n");
+                Console.Write("\n\t\t\tSearch Magazines: ");
+                string input = Console.ReadLine().ToLower().Trim();
+                SearchMagazines(input);
+                Console.ReadKey();
+            }
+            else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n\t\t\t========================");
+                Console.WriteLine("\t\t\t=========Search=========\n");
+                Console.Write("\n\t\t\tSearch Music: ");
+                string input = Console.ReadLine().ToLower().Trim();
+                SearchMusic(input);
+                Console.ReadKey();
+            }
+            else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
+            {
+                Console.Clear();
+            }
+
+        }
+
+        public void DisplayBookSearchOptions()
+        {
+            Console.WriteLine("\n\t\tHow are you searching?");
+            Console.WriteLine("\n\t\t\t[1] By Author");
+            Console.WriteLine("\n\t\t\t[2] By Title");
+            Console.WriteLine("\n\t\t\t[3] Return to main menu");
+
+            ConsoleKeyInfo keyInput = Console.ReadKey();
+
+            if (keyInput.Key == ConsoleKey.D1 || keyInput.Key == ConsoleKey.NumPad1)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n\t\t\t========================");
+                Console.WriteLine("\t\t\t=========Search=========\n");
+                Console.Write("\n\t\t\tSearch Books by Author: ");
+                string input = Console.ReadLine().ToLower().Trim();
+                SearchBookByAuthor(input);
+                Console.ReadKey();
+            }
+            else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
+            {
+                Console.Clear();
+                Console.WriteLine("\n\n\t\t\t========================");
+                Console.WriteLine("\t\t\t=========Search=========\n");
+                Console.Write("\n\t\t\tSearch Books by Title: ");
+                string input = Console.ReadLine().ToLower().Trim();
+                SearchBookByTitle(input);
+                Console.ReadKey();
+            }
+            else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
+            {
+                Console.Clear();
+            }
+
+        }
         #endregion
 
     }
