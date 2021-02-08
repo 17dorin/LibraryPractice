@@ -177,6 +177,7 @@ namespace LibraryProject
                         if (piece.Status == RentalStatus.In)
                         {
                             Console.WriteLine("\n\n\t\tDo you want to check out this item? Y/N");
+                            Console.WriteLine($"\n\n\t\t{piece}");
                             if (Console.ReadKey(false).Key == ConsoleKey.Y)
                             {
                                 piece.CheckOut();
@@ -219,7 +220,7 @@ namespace LibraryProject
                 //Add logic to print all out books
                 foreach (Media piece in outMedia)
                 {
-                    Console.WriteLine($"[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+                    Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
                 }
             }
             catch (Exception e)
@@ -251,7 +252,7 @@ namespace LibraryProject
                     if (option - 1 == outMedia.IndexOf(piece))
                     {
                         Console.WriteLine("\n\nDo you want to return this item? Y/N");
-                        Console.WriteLine($" [{outMedia.IndexOf(piece) + 1}]{piece.ToString()}");
+                        Console.WriteLine($"\n\n\t\t[{outMedia.IndexOf(piece) + 1}] {piece.ToString()}");
 
                         if (Console.ReadKey(false).Key == ConsoleKey.Y)
                         {
@@ -350,7 +351,7 @@ namespace LibraryProject
                     Console.Clear();
                     Console.WriteLine("\t\t==========OUR=COLLECTION==========");
                     DisplayMediaOptions();
-                    Console.ReadKey();
+                    //Console.ReadKey();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
                 {
@@ -443,8 +444,8 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========BOOKS==========");
                     DisplayBooks();
                     ReserveMedia(toDisplay);
-                    Console.ReadKey();
-                    Console.Clear();
+                    //Console.ReadKey();
+                    //Console.Clear();
                     DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
@@ -455,8 +456,8 @@ namespace LibraryProject
                     Console.WriteLine("\t\t========MAGAZINES========");
                     DisplayMagazines();
                     ReserveMedia(toDisplay);
-                    Console.ReadKey();
-                    Console.Clear();
+                    //Console.ReadKey();
+                    //Console.Clear();
                     DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
@@ -467,8 +468,8 @@ namespace LibraryProject
                     Console.WriteLine("\t\t==========MUSIC==========");
                     DisplayMusic();
                     ReserveMedia(toDisplay);
-                    Console.ReadKey();
-                    Console.Clear();
+                    //Console.ReadKey();
+                    //Console.Clear();
                     DisplayMediaOptions();
                 }
                 else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
@@ -477,14 +478,15 @@ namespace LibraryProject
                     Console.WriteLine("\t\t===========ALL===========");
                     DisplayAllMedia();
                     ReserveMedia(Medias);
-                    Console.ReadKey();
-                    Console.Clear();
+                    //Console.ReadKey();
+                    //Console.Clear();
                     DisplayMediaOptions();
 
                 }
                 else if (keyInput.Key == ConsoleKey.D5 || keyInput.Key == ConsoleKey.NumPad5)
                 {
                     Console.Clear();
+                    return;
                 }
             
             }
@@ -505,7 +507,7 @@ namespace LibraryProject
                 Console.WriteLine("\n\n\t\t\t========================");
                 Console.WriteLine("\t\t\t=========Search=========\n");
                 DisplayBookSearchOptions();
-                Console.ReadKey();
+                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
             {
@@ -515,7 +517,7 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Magazines: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchMagazines(input);
-                Console.ReadKey();
+                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
             {
@@ -525,7 +527,7 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Music: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchMusic(input);
-                Console.ReadKey();
+                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D4 || keyInput.Key == ConsoleKey.NumPad4)
             {
@@ -551,7 +553,7 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Books by Author: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchBookByAuthor(input);
-                Console.ReadKey();
+                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D2 || keyInput.Key == ConsoleKey.NumPad2)
             {
@@ -561,7 +563,7 @@ namespace LibraryProject
                 Console.Write("\n\t\t\tSearch Books by Title: ");
                 string input = Console.ReadLine().ToLower().Trim();
                 SearchBookByTitle(input);
-                Console.ReadKey();
+                //Console.ReadKey();
             }
             else if (keyInput.Key == ConsoleKey.D3 || keyInput.Key == ConsoleKey.NumPad3)
             {
